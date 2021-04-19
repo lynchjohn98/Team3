@@ -12,7 +12,7 @@ struct ContentView: View {
         VStack {
             Text("Hello, world!")
                 .padding()
-            Text("This is for our capstone")
+            Text("This is for our capstone THIS iS A TEST")
         }
     
     }
