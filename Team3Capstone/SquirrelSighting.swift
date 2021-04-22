@@ -19,22 +19,37 @@ struct SquirrelSighting: View {
                     .resizable()
                     .frame(width:250, height:200)
                     .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                Text("Grey Fox Squirrel")
+                    .scaledToFit()
+                VStack {
+                    Text("Grey Fox Squirrel")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                    Text("Grey Backs")
+                    Text("White or Grey Bellies")
+                    Text("White-Fringed Tails")
+                }
             }
             HStack {
                 Image("squirrelSelectRed")
                     .resizable()
                     .frame(width:250, height:200)
                     .clipShape(Circle())
-                Text("Red Fox Squirrel")
+                VStack {
+                    Text("Red Fox Squirrel")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                    Text("Orange/Rust back")
+                    Text("Orange Bellies")
+                    Text("Black-Fringed Tails")
+                }
             }
             Spacer()
                 .frame(width:50, height: 100)
+            //John : check out MapKit auto determining your location
+            //After you press your squirrel, have the user okay it.
+            //Use only when using app (grant permission to use app)
             HStack {
-                Text("Get Started!")
-                    .background(Image("squirrelCartoon")
-                                    .resizable()
-                                    .frame(width:200,height:200))
+                Text("Enter!")
             }
         }
     }

@@ -6,7 +6,14 @@
 //
 
 //Need to use Scaled to Fit more often on our app
-//Will need to add that modifier to the images currently created 
+//Will need to add that modifier to the images currently created
+
+//For our data model: a user using this app will have
+// Username
+// Amount of Squirrels Sighted
+// UUID
+// Potential : users location?
+// Potential : do we have to have username attached to email/phone number
 
 import SwiftUI
 

@@ -5,7 +5,7 @@
 //  Created by John William Lynch on 4/21/21.
 //
 
-// Potential new 6 page. Shift this to a page for people to upload their pictures. 7 small windows on page like a gallery, as people start posting pictures. Have a take a photo / upload photo option. All built in
+// Potential new 6 page. Shift this to a page for people to upload their pictures. 7 small windows on page like a gallery, as people start posting pictures. Have a take a photo / upload photo option. All built in. Only allow users to upload.
 
 import SwiftUI
 
@@ -19,7 +19,6 @@ struct SquirrelInformation: View {
                 //Make the backgrounds different colors
                 HStack {
                     Text("Eastern Grey Squirrel")
-                    
                 }
                 HStack {
                 Image("squirrelSelectGrey")
@@ -54,7 +53,6 @@ struct SquirrelInformation: View {
             }
             Spacer()
                 .frame(width:50, height: 100)
-            
         }
     }
 }
