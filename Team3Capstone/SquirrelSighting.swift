@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SquirrelSighting: View {
     var body: some View {
+        NavigationView{
         VStack {
             Text("Where are the Squirrels?")
             Text("What type of Squirrel do you see?")
@@ -49,7 +50,23 @@ struct SquirrelSighting: View {
             //After you press your squirrel, have the user okay it.
             //Use only when using app (grant permission to use app)
             HStack {
-                Text("Enter!")
+                Button(action: {
+                    
+                }, label: {
+                    Text("Enter")
+                })
+            }
+            HStack{
+                Text("Hello")
+                NavigationLink(
+                    destination: ContentView(),
+                    label: {
+                        Text(Image(systemName: "house"))
+                            .font(.system(size: 30))
+                            .foregroundColor(.white)
+                    })
+                    .frame(width:60)
+                }
             }
         }
     }

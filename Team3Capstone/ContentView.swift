@@ -17,6 +17,14 @@
 
 import SwiftUI
 
+struct User : Hashable, Codable {
+    var id = UUID()
+    var userName = String()
+    var squirrelSightings = Int()
+}
+
+var userTest = User(userName: "JohnTest", squirrelSightings: 100)
+
 struct ContentView: View {
     
     var body: some View {
@@ -24,7 +32,7 @@ struct ContentView: View {
         NavigationView {
             
             Group{
-                //Group for information page
+                
                 VStack {
                     
                     Spacer()
@@ -56,31 +64,22 @@ struct ContentView: View {
                         NavigationLink(
                             destination: SquirrelSighting(),
                             label: {
-                                Text("Get Started!")
+                                Text("I See a Squirrel!")
                                     .foregroundColor(.black)
                                     .background(Image("squirrelCartoon")
                                                     .resizable()
                                                     .frame(width:200,height:200))
                             })
                     }
-                    
                     Spacer()
                         .frame(width: 50.0, height: 100)
                     
                     
                     //HStack at bottom to navigate through each page
+                    //Link the sighting to the trophy. After someone puts in a squirrel it will link to a trophy case
                     HStack {
                         NavigationLink(
-                            destination: ContentView(),
-                            label: {
-                                Text(Image(systemName: "house"))
-                                    .font(.system(size: 30))
-                                    .foregroundColor(.white)
-                                    
-                            })
-                            .frame(width:60)
-                        NavigationLink(
-                            destination: SquirrelInformation(),
+                            destination: SquirrelSighting(),
                             label: {
                                 Text(Image(systemName: "location.circle.fill"))
                                     .font(.system(size: 30))
@@ -88,9 +87,17 @@ struct ContentView: View {
                             })
                             .frame(width:60)
                         NavigationLink(
-                            destination: SquirrelAboutUs(),
+                            destination: SquirrelData(),
                             label: {
-                                Text(Image(systemName: "questionmark.square.fill"))
+                                Text(Image(systemName: "mappin.and.ellipse"))
+                                    .font(.system(size: 30))
+                                    .foregroundColor(.white)
+                            })
+                            .frame(width:60)
+                        NavigationLink(
+                            destination: SquirrelTrophy(),
+                            label: {
+                                Text(Image(systemName: "questionmark.circle.fill"))
                                     .font(.system(size: 30))
                                     .foregroundColor(.white)
                             })
@@ -98,15 +105,15 @@ struct ContentView: View {
                         NavigationLink(
                             destination: SquirrelAboutUs(),
                             label: {
-                                Text(Image(systemName: "house"))
+                                Text(Image(systemName: "book.circle.fill"))
                                     .font(.system(size: 30))
                                     .foregroundColor(.white)
                             })
                             .frame(width:60)
                         NavigationLink(
-                            destination: SquirrelAboutUs(),
+                            destination: SquirrelUserPictures(),
                             label: {
-                                Text(Image(systemName: "person.2.fill"))
+                                Text(Image(systemName: "camera.circle.fill"))
                                     .font(.system(size: 30))
                                     .foregroundColor(.white)
                             })
@@ -114,8 +121,6 @@ struct ContentView: View {
                     }
                     .frame(width:500, height:50)
                     .background(Color.orange)
-                    
-                    
                 }
             }
         }

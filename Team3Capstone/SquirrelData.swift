@@ -8,10 +8,14 @@
 import SwiftUI
 
 struct SquirrelData: View {
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("This is the graphs pages for maps and data")
+            }
+        }
     }
-}
+ 
 
 struct SquirrelData_Previews: PreviewProvider {
     static var previews: some View {

@@ -9,7 +9,7 @@
 
 import SwiftUI
 
-struct SquirrelInformation: View {
+struct SquirrelUserPictures: View {
     var body: some View {
         VStack {
             Text("Hello this is the user pictures page")
@@ -18,8 +18,8 @@ struct SquirrelInformation: View {
     }
 }
 
-struct SquirrelInformation_Previews: PreviewProvider {
+struct SquirrelUserPictures_Previews: PreviewProvider {
     static var previews: some View {
-        SquirrelInformation()
+        SquirrelUserPictures()
     }
 }
