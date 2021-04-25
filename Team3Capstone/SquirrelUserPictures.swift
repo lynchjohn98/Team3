@@ -12,47 +12,8 @@ import SwiftUI
 struct SquirrelInformation: View {
     var body: some View {
         VStack {
-            
-            Spacer()
-                .frame(width: 50, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            VStack {
-                //Make the backgrounds different colors
-                HStack {
-                    Text("Eastern Grey Squirrel")
-                }
-                HStack {
-                Image("squirrelSelectGrey")
-                    .resizable()
-                    .frame(width:250, height:200)
-                    .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                    VStack{
-                        Text("Grey Backs")
-                        Text("White or Grey Bellies")
-                        Text("White-Fringed Tails")
-                    }
-                }
-                .background(Color.gray)
-            }
-            VStack {
-                HStack {
-                    Text("Eastern Fox Squirrel")
-                    
-                }
-                HStack {
-                Image("squirrelSelectRed")
-                    .resizable()
-                    .frame(width:250, height:200)
-                    .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                    VStack{
-                        Text("Orange/Rust back")
-                        Text("Orange Bellies")
-                        Text("Black-Fringed Tails")
-                    }
-                }
-                .background(Color.orange)
-            }
-            Spacer()
-                .frame(width:50, height: 100)
+            Text("Hello this is the user pictures page")
+            Text("This is a test")
         }
     }
 }
