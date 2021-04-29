@@ -10,11 +10,25 @@
 import SwiftUI
 
 struct SquirrelUserPictures: View {
+    @State var image : Image?
+    @State var showPicker = false
+    
     var body: some View {
+        
         VStack {
-            Text("Hello this is the user pictures page")
-            Text("This is a test")
+            Text("Upload some photos!")
+            Button(action: {
+                showPicker = true
+            }, label: {
+                Text("Choose Camera")
+            })
         }
+        
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(
+            RadialGradient(gradient: Gradient(colors: [.white, .orange]), center: .center, startRadius: 2, endRadius: 650)
+                .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+        )
     }
 }
 

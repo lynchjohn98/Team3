@@ -6,12 +6,41 @@
 //
 
 import SwiftUI
+import AppDevWithSwiftLibrary
+import CloudKit
 
 struct SquirrelTrophy: View {
+    @State var presentAccountSheet = false
+    @State var accountUsername = ""
+    @State var currentUsername : String = "new user"
+    
     var body: some View {
+        
         VStack {
-            Text("Where are the Squirrels?")
             
+            HStack {
+
+                Button(action: {
+                    presentAccountSheet = true
+                }, label: {
+                    Image(systemName: "house")
+                })
+            } .sheet(isPresented: $presentAccountSheet) {
+                Text("Welcome to your new account! Please enter a username")
+                    .multilineTextAlignment(.center)
+                TextField("Enter your Username", text: $accountUsername)
+                    .multilineTextAlignment(.center)
+                Button(action: {
+                    let newUser = User(username: accountUsername, greySquirrelSightings: 0, redSquirrelSightings: 0)
+                    newUser.save()
+                    currentUsername = accountUsername
+                    presentAccountSheet = false
+                }, label: {
+                    Text("Submit")
+                })
+            }
+            
+            Text("Welcome " + currentUsername)
             
             HStack {
                 Image("squirrelCartoon")
@@ -54,7 +83,7 @@ struct SquirrelTrophy: View {
             }
             Text("You are:")
             VStack {
-                let squirrelCount = userTest.squirrelSightings
+                let squirrelCount = 0
                 if (squirrelCount >= 0 && squirrelCount < 11) {
                     Text("Squirrel Friend")
                 }
@@ -66,6 +95,11 @@ struct SquirrelTrophy: View {
                 }
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(
+            RadialGradient(gradient: Gradient(colors: [.white, .orange]), center: .center, startRadius: 2, endRadius: 650)
+                .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+        )
     }
 }
 

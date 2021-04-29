@@ -6,74 +6,126 @@
 //  Create a new view for each of the screens
 
 import SwiftUI
+import AppDevWithSwiftLibrary
+import Foundation
 
 struct SquirrelSighting: View {
+
+    //Simple binary representation 0 is for grey, 1 is for red
+    @State var squirrelSelection : Int = -1
+    @State var greySquirrelSelected : Bool = false
+    @State var redSquirrelSelected : Bool = false
+    
+
     var body: some View {
-        NavigationView{
-        VStack {
-            Text("Where are the Squirrels?")
-            Text("What type of Squirrel do you see?")
-            Spacer()
-                .frame(width: 50, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            HStack {
-                Image("squirrelSelectGrey")
-                    .resizable()
-                    .frame(width:250, height:200)
-                    .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                    .scaledToFit()
+          
+        NavigationView {
+            VStack {
+                
                 VStack {
-                    Text("Grey Fox Squirrel")
-                        .font(.title3)
+                    Text("Select the Squirrel You See!")
+                        .font(.title2)
                         .fontWeight(.bold)
-                    Text("Grey Backs")
-                    Text("White or Grey Bellies")
-                    Text("White-Fringed Tails")
+                        .multilineTextAlignment(.center)
+                    Spacer()
+                        .frame(width: 2, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 }
-            }
-            HStack {
-                Image("squirrelSelectRed")
-                    .resizable()
-                    .frame(width:250, height:200)
-                    .clipShape(Circle())
-                VStack {
-                    Text("Red Fox Squirrel")
-                        .font(.title3)
-                        .fontWeight(.bold)
-                    Text("Orange/Rust back")
-                    Text("Orange Bellies")
-                    Text("Black-Fringed Tails")
+                
+                //After the first two lines of text, here the user can select which squirrel they currently see
+                //First HStack for the Grey Fox Squirrel
+                HStack {
+                    Button(action: {
+                        greySquirrelSelected.toggle()
+                        if (redSquirrelSelected){
+                            redSquirrelSelected.toggle()
+                        }
+                    }, label: {
+                        
+                        if greySquirrelSelected {
+                            Image("squirrelSelectGrey")
+                                .resizable()
+                                .scaledToFit()
+                                .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                                .overlay(Circle()
+                                            .stroke(Color.orange, lineWidth: 4))
+                        }
+                        else {
+                            Image("squirrelSelectGrey")
+                                .resizable()
+                                .scaledToFit()
+                                .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                        }
+                    })
+                    VStack {
+                        Text("Grey Fox Squirrel")
+                            .font(.title3)
+                            .fontWeight(.bold)
+                        Text("Grey Backs")
+                        Text("White or Grey Bellies")
+                        Text("White-Fringed Tails")
+                    }
                 }
-            }
-            Spacer()
-                .frame(width:50, height: 100)
-            //John : check out MapKit auto determining your location
-            //After you press your squirrel, have the user okay it.
-            //Use only when using app (grant permission to use app)
-            HStack {
+                
+                //Second HStack for the Red Fox Squirrel
+                HStack {
+                    Button(action: {
+                        redSquirrelSelected.toggle()
+                        if (greySquirrelSelected) {
+                            greySquirrelSelected.toggle()
+                        }
+                    }, label: {
+                        if redSquirrelSelected {
+                            Image("squirrelSelectRed")
+                                .resizable()
+                                .scaledToFit()
+                                .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                                .overlay(Circle()
+                                            .stroke(Color.orange, lineWidth: 4))
+                        }
+                        else {
+                            Image("squirrelSelectRed")
+                                .resizable()
+                                .scaledToFit()
+                                .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                        }
+                    })
+                    VStack {
+                        Text("Red Fox Squirrel")
+                            .font(.title3)
+                            .fontWeight(.bold)
+                        Text("Orange/Rust back")
+                        Text("Orange Bellies")
+                        Text("Black-Fringed Tails")
+                    }
+                }
+                Spacer()
                 Button(action: {
                     
                 }, label: {
                     Text("Enter")
+                        .bold()
+                        .fontWeight(.heavy)
                 })
             }
-            HStack{
-                Text("Hello")
-                NavigationLink(
-                    destination: ContentView(),
-                    label: {
-                        Text(Image(systemName: "house"))
-                            .font(.system(size: 30))
-                            .foregroundColor(.white)
-                    })
-                    .frame(width:60)
-                }
-            }
+            
+            
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(
+                RadialGradient(gradient: Gradient(colors: [.white, .orange]), center: .center, startRadius: 2, endRadius: 650)
+                    .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+            )
         }
+        
     }
-}
+
+    }
+
 
 struct SquirrelSighting_Previews: PreviewProvider {
     static var previews: some View {
         SquirrelSighting()
     }
 }
+
+
+

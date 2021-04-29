@@ -17,59 +17,54 @@
 
 import SwiftUI
 
-struct User : Hashable, Codable {
-    var id = UUID()
-    var userName = String()
-    var squirrelSightings = Int()
-}
-
-var userTest = User(userName: "JohnTest", squirrelSightings: 100)
 
 struct ContentView: View {
     
     var body: some View {
         
+        //To make the background different color
+        
         NavigationView {
             
-            Group{
+            Group {
                 
                 VStack {
                     
-                    Spacer()
+                    Text("Where are the Squirrels?")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .multilineTextAlignment(.center)
                     
-                    //Title Vertical Stack
                     VStack {
-                        Text("Where are the Squirrels?")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
-                            .padding()
-                            .background(Image("titlePageSquirrel")
-                                            .resizable()
-                                            .frame(width:400, height: 400))
+                        Text("Help Monitor the Environmental Conditions")
+                        
                     }
                     
                     Spacer()
+                        .background(Image("titlePageSquirrel")
+                                        .resizable()
+                                        .frame(width: 400, height: 400))
                     
-                    //Caption vertical stack
-                    VStack {
-                        Text("Help Monitor the Environmental Conditions that affect our Neighborhood Wildlife")
-                            .font(.title2)
-                            .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                            .multilineTextAlignment(.center)
-                    }
+                    
                     Spacer()
+                        .frame(height: 50.0)
                     
                     //Get started button vertical stack
-                    VStack {
+                    HStack {
                         NavigationLink(
                             destination: SquirrelSighting(),
                             label: {
-                                Text("I See a Squirrel!")
-                                    .foregroundColor(.black)
-                                    .background(Image("squirrelCartoon")
+                                Text("I See A Squirrel!")
+                                    .font(.title2)
+                                    .fontWeight(.bold)
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(.green)
+                                    .background(Image("acorn")
                                                     .resizable()
-                                                    .frame(width:200,height:200))
+                                                    .frame(width:225,height:190))
                             })
+                        Spacer()
+                            .frame(width:50)
                     }
                     Spacer()
                         .frame(width: 50.0, height: 100)
@@ -119,13 +114,20 @@ struct ContentView: View {
                             })
                             .frame(width:60)
                     }
-                    .frame(width:500, height:50)
-                    .background(Color.orange)
+                    
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(
+                    RadialGradient(gradient: Gradient(colors: [.white, .orange]), center: .center, startRadius: 2, endRadius: 650)
+                        .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                )
             }
         }
     }
+    
 }
+
+
 
 
 

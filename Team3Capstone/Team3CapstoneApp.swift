@@ -9,7 +9,9 @@ import SwiftUI
 
 @main
 struct Team3CapstoneApp: App {
+    
     var body: some Scene {
+        
         WindowGroup {
             ContentView()
         }

@@ -22,6 +22,11 @@ struct SquirrelAboutUs: View {
              
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(
+            RadialGradient(gradient: Gradient(colors: [.white, .orange]), center: .center, startRadius: 2, endRadius: 650)
+                .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+        )
     }
 }
 

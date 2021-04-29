@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E0BD28F263A09CE0097C361 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E0BD28E263A09CE0097C361 /* CloudKit.framework */; };
 		5E7C3AB22630830C007BF3C5 /* SquirrelSighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C3AB12630830C007BF3C5 /* SquirrelSighting.swift */; };
 		5E7C3AB826309976007BF3C5 /* SquirrelAboutUs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C3AB726309976007BF3C5 /* SquirrelAboutUs.swift */; };
 		5E7C3ABC26322B38007BF3C5 /* AppDevWithSwiftLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 5E7C3ABB26322B38007BF3C5 /* AppDevWithSwiftLibrary */; };
 		5E7C3ABF26323135007BF3C5 /* SquirrelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C3ABE26323135007BF3C5 /* SquirrelData.swift */; };
 		5E7C3AC22632314F007BF3C5 /* SquirrelTrophy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C3AC12632314F007BF3C5 /* SquirrelTrophy.swift */; };
 		5E7C3AC52632317A007BF3C5 /* SquirrelUserPictures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C3AC42632317A007BF3C5 /* SquirrelUserPictures.swift */; };
+		5EA7E501263A0F5C00A88110 /* CloudKitGenerics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA7E500263A0F5C00A88110 /* CloudKitGenerics.swift */; };
 		5EF8FC13262E32F500F1FBBD /* Team3CapstoneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF8FC12262E32F500F1FBBD /* Team3CapstoneApp.swift */; };
 		5EF8FC15262E32F500F1FBBD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF8FC14262E32F500F1FBBD /* ContentView.swift */; };
 		5EF8FC17262E32F600F1FBBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EF8FC16262E32F600F1FBBD /* Assets.xcassets */; };
@@ -20,11 +22,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5E0BD28B263A09B90097C361 /* Team3Capstone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Team3Capstone.entitlements; sourceTree = "<group>"; };
+		5E0BD28E263A09CE0097C361 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		5E7C3AB12630830C007BF3C5 /* SquirrelSighting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquirrelSighting.swift; sourceTree = "<group>"; };
 		5E7C3AB726309976007BF3C5 /* SquirrelAboutUs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquirrelAboutUs.swift; sourceTree = "<group>"; };
 		5E7C3ABE26323135007BF3C5 /* SquirrelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquirrelData.swift; sourceTree = "<group>"; };
 		5E7C3AC12632314F007BF3C5 /* SquirrelTrophy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquirrelTrophy.swift; sourceTree = "<group>"; };
 		5E7C3AC42632317A007BF3C5 /* SquirrelUserPictures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquirrelUserPictures.swift; sourceTree = "<group>"; };
+		5EA7E500263A0F5C00A88110 /* CloudKitGenerics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitGenerics.swift; sourceTree = "<group>"; };
 		5EF8FC0F262E32F500F1FBBD /* Team3Capstone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Team3Capstone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EF8FC12262E32F500F1FBBD /* Team3CapstoneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team3CapstoneApp.swift; sourceTree = "<group>"; };
 		5EF8FC14262E32F500F1FBBD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -39,17 +44,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				5E7C3ABC26322B38007BF3C5 /* AppDevWithSwiftLibrary in Frameworks */,
+				5E0BD28F263A09CE0097C361 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5E0BD28D263A09CE0097C361 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5E0BD28E263A09CE0097C361 /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		5EF8FC06262E32F500F1FBBD = {
 			isa = PBXGroup;
 			children = (
 				5EF8FC11262E32F500F1FBBD /* Team3Capstone */,
 				5EF8FC10262E32F500F1FBBD /* Products */,
+				5E0BD28D263A09CE0097C361 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,16 +79,18 @@
 		5EF8FC11262E32F500F1FBBD /* Team3Capstone */ = {
 			isa = PBXGroup;
 			children = (
+				5E0BD28B263A09B90097C361 /* Team3Capstone.entitlements */,
 				5EF8FC12262E32F500F1FBBD /* Team3CapstoneApp.swift */,
+				5EA7E500263A0F5C00A88110 /* CloudKitGenerics.swift */,
 				5EF8FC16262E32F600F1FBBD /* Assets.xcassets */,
-				5EF8FC14262E32F500F1FBBD /* ContentView.swift */,
 				5EF8FC1B262E32F600F1FBBD /* Info.plist */,
 				5EF8FC18262E32F600F1FBBD /* Preview Content */,
+				5EF8FC14262E32F500F1FBBD /* ContentView.swift */,
 				5E7C3AB12630830C007BF3C5 /* SquirrelSighting.swift */,
-				5E7C3AC42632317A007BF3C5 /* SquirrelUserPictures.swift */,
 				5E7C3ABE26323135007BF3C5 /* SquirrelData.swift */,
 				5E7C3AC12632314F007BF3C5 /* SquirrelTrophy.swift */,
 				5E7C3AB726309976007BF3C5 /* SquirrelAboutUs.swift */,
+				5E7C3AC42632317A007BF3C5 /* SquirrelUserPictures.swift */,
 			);
 			path = Team3Capstone;
 			sourceTree = "<group>";
@@ -161,6 +178,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EA7E501263A0F5C00A88110 /* CloudKitGenerics.swift in Sources */,
 				5E7C3ABF26323135007BF3C5 /* SquirrelData.swift in Sources */,
 				5E7C3AC22632314F007BF3C5 /* SquirrelTrophy.swift in Sources */,
 				5E7C3AC52632317A007BF3C5 /* SquirrelUserPictures.swift in Sources */,
@@ -295,6 +313,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Team3Capstone/Team3Capstone.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Team3Capstone/Preview Content\"";
 				DEVELOPMENT_TEAM = JS672DRUXD;
@@ -317,6 +336,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Team3Capstone/Team3Capstone.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Team3Capstone/Preview Content\"";
 				DEVELOPMENT_TEAM = JS672DRUXD;
