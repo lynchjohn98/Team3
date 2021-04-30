@@ -10,37 +10,13 @@ import AppDevWithSwiftLibrary
 import CloudKit
 
 struct SquirrelTrophy: View {
-    @State var presentAccountSheet = false
-    @State var accountUsername = ""
-    @State var currentUsername : String = "new user"
-    
+
     var body: some View {
         
         VStack {
             
-            HStack {
-
-                Button(action: {
-                    presentAccountSheet = true
-                }, label: {
-                    Image(systemName: "house")
-                })
-            } .sheet(isPresented: $presentAccountSheet) {
-                Text("Welcome to your new account! Please enter a username")
-                    .multilineTextAlignment(.center)
-                TextField("Enter your Username", text: $accountUsername)
-                    .multilineTextAlignment(.center)
-                Button(action: {
-                    let newUser = User(username: accountUsername, greySquirrelSightings: 0, redSquirrelSightings: 0)
-                    newUser.save()
-                    currentUsername = accountUsername
-                    presentAccountSheet = false
-                }, label: {
-                    Text("Submit")
-                })
-            }
             
-            Text("Welcome " + currentUsername)
+            Text("Welcome " + String(accountUsername))
             
             HStack {
                 Image("squirrelCartoon")
@@ -81,7 +57,7 @@ struct SquirrelTrophy: View {
                     Text("31+ Squirrels Sighted")
                 }
             }
-            Text("You are:")
+            Text(String(accountUsername) + ", you are a:")
             VStack {
                 let squirrelCount = 0
                 if (squirrelCount >= 0 && squirrelCount < 11) {
@@ -108,3 +84,4 @@ struct SquirrelTrophy_Previews: PreviewProvider {
         SquirrelTrophy()
     }
 }
+

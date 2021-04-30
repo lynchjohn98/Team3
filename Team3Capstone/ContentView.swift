@@ -16,20 +16,115 @@
 // Potential : do we have to have username attached to email/phone number
 
 import SwiftUI
+import AppDevWithSwiftLibrary
+import MapKit
 
+//Create our cloud kit with generated UUID Strings. Generated online from this tool https://www.uuidgenerator.net/version1
+//Generate a new one each time or have them set?
+//Get app loaded onto iPad and iPhone
+
+//UserID does not need to be UUID, it is tied to the appID
+let cloud = AppDevWithSwiftCloud(appID: "d226c704-a9e0-11eb-bcbc-0242ac130002",
+                                 userID: "e57be85c-a9e0-11eb-bcbc-0242ac130002")
+
+//Create testflight, distribute app on test flight, and see how it works
+//Will give them the ability to load in test flight app first, in test flight you will see your app, download it and run it on the phone
+
+//Get all apple ids, 
+
+//Create our storage data type
+struct NewSquirrelUser: Hashable, Codable {
+    var id = UUID()
+    var username = String()
+    var greySquirrelSightings : Double = 0
+    var redSquirrelSightings : Double = 0
+    //Make array of squirrel
+    //var squirrels : [SquirrelLocation] = []
+}
+
+//Create a storage for our locations for the pins located on the map
+//struct SquirrelLocation : Hashable, Codable, Identifiable {
+//    var id = UUID()
+//    var title = String()
+//    Store a lat and long, those will be codable.
+//    Make a seperate array of annotations (populate when update data from cloud)
+//    var coordinate = CLLocationCoordinate2D()
+//}
+
+//Global username
+var accountUsername = "User"
+//Need a var to check if the user made an account or not
+var createdAccount : Bool = false
 
 struct ContentView: View {
     
+   //Variables if the user want's to sign up for their own account
+    @State var showUserSignUp = false
+    @State var selectedUsername = ""
+    
     var body: some View {
         
-        //To make the background different color
-        
         NavigationView {
-            
+
             Group {
-                
+            
                 VStack {
                     
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            showUserSignUp = true
+                        }, label: {
+                            Text(Image(systemName: "person.badge.plus"))
+                        })
+                        .sheet(isPresented: $showUserSignUp) {
+                            Text("Please enter your username")
+                                .multilineTextAlignment(.center)
+                            TextField("Enter your username", text: $selectedUsername)
+                            Button(action: {
+                                cloud.save(data: NewSquirrelUser(username: accountUsername, greySquirrelSightings: 0, redSquirrelSightings: 0))
+                                accountUsername = selectedUsername
+                                createdAccount = true
+                                showUserSignUp = false
+                                
+                            }, label: {
+                                Text("Submit")
+                            })
+                        }
+                        .multilineTextAlignment(.center)
+                       
+                        Spacer()
+                        Button(action: {
+                            //This will generate ten random users with arbitrary data.
+                            for i in 0..<10 {
+                                let randomGrey = Int.random(in: 0..<15)
+                                let randomRed = Int.random(in: 0..<15)
+                                cloud.save(data: NewSquirrelUser(username:"Tester"+String(i), greySquirrelSightings: Double(randomGrey), redSquirrelSightings: Double(randomRed)))
+                                //Empty array of squirrel locations
+                            }
+                            
+                        },
+                               label: {
+                                Text(Image(systemName: "person.3"))
+                        })
+                        Spacer()
+                        
+                        //I want this button to clear all data that I currently have populated. I am trying to use delete by ID but not sure if it works
+                        Button(action: {
+                            cloud.getAll(dummy: NewSquirrelUser()) {
+                                (people) in
+                                for person in people {
+                                    cloud.deleteByID(dummy: NewSquirrelUser(), id: person.id.uuidString)
+                                }
+                            }
+                        }, label: {
+                            Text(Image(systemName: "trash.fill"))
+                        })
+                        Spacer()
+                           
+                    }
+                    Spacer()
+                        .frame(width:25, height:25)
                     Text("Where are the Squirrels?")
                         .font(.largeTitle)
                         .fontWeight(.bold)
@@ -39,6 +134,9 @@ struct ContentView: View {
                         Text("Help Monitor the Environmental Conditions")
                         
                     }
+                    
+                    
+                    
                     
                     Spacer()
                         .background(Image("titlePageSquirrel")
