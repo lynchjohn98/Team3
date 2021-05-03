@@ -125,13 +125,35 @@ struct SquirrelSighting: View {
                     //Check if neither are selected, if neither are then alert the user to select one
                     if (!greySquirrelSelected && !redSquirrelSelected) {
                         showError = true
-                        errorMessage = "Please select a squirrel before entering!"
+                        errorMessage = "You need to pick the squirrel you saw first!"
                     }
                     
-                    //Both passes are okay, means the user has an account and has made a selection
+                    //Both passes are okay, means the user has an account and has made a selection properly
                     //Here we will need to 
                     else {
-                        print("Success")
+                        cloud.getAll(dummy: NewSquirrelUser()) {
+                            (people) in
+                            for person in people {
+                                //Check if this is our current user of the app
+                                if person.username == accountUsername {
+                                    //Grab the sighting location via finding the users current location
+                                    let currentLocation = location.lastKnownLocation
+                                    let squirrelSighting : SquirrelLocation = SquirrelLocation(latitiude: Double(currentLocation!.latitude), longitude: Double( currentLocation!.longitude))
+                                    var updatedUserData = person
+                                    print("Found user's current location")
+                                    print(squirrelSighting)
+                                    updatedUserData.squirrels.append(squirrelSighting)
+                                    if (greySquirrelSelected) {
+                                        updatedUserData.greySquirrelSightings += 1
+                                        cloud.save(data: updatedUserData)
+                                    }
+                                    if (redSquirrelSelected) {
+                                        updatedUserData.redSquirrelSightings += 1
+                                        cloud.save(data: updatedUserData)
+                                    }
+                                }
+                            }
+                        }
                     }
                 }, label: {
                     Text("Submit!")
@@ -142,7 +164,7 @@ struct SquirrelSighting: View {
                 }
                 Spacer()
             }
-
+            
             
             
         }
@@ -157,12 +179,7 @@ struct SquirrelSighting: View {
             location.start()
             
         })
-        
-        
-        
-        
     }
-    
     
 }
 

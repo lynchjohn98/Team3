@@ -11,12 +11,16 @@ import CloudKit
 
 struct SquirrelTrophy: View {
 
+    @State var currentUsersSightings = Int()
+    
     var body: some View {
         
         VStack {
             
-            
+            VStack {
+        
             Text("Welcome " + String(accountUsername))
+            Text("You have sighted " + String(currentUsersSightings) + " squirrels")
             
             HStack {
                 Image("squirrelCartoon")
@@ -57,26 +61,44 @@ struct SquirrelTrophy: View {
                     Text("31+ Squirrels Sighted")
                 }
             }
+                VStack {
             Text(String(accountUsername) + ", you are a:")
-            VStack {
-                let squirrelCount = 0
-                if (squirrelCount >= 0 && squirrelCount < 11) {
-                    Text("Squirrel Friend")
+                VStack {
+                    let squirrelCount = currentUsersSightings
+                    if (squirrelCount >= 0 && squirrelCount < 11) {
+                        Text("Squirrel Friend")
+                    }
+                    else if (squirrelCount >= 11 && squirrelCount < 31) {
+                        Text("Squirrel Pro")
+                    }
+                    else {
+                        Text("Squirrel Expert")
+                    }
+                    Spacer()
                 }
-                else if (squirrelCount >= 11 && squirrelCount < 31) {
-                    Text("Squirrel Pro")
-                }
-                else {
-                    Text("Squirrel Expert")
+                .frame(width:200, height: 50)
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(
+                RadialGradient(gradient: Gradient(colors: [.white, .orange]), center: .center, startRadius: 2, endRadius: 650)
+                    .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+            )
+            //As our data view appears, need to fill in our information
+            .onAppear(perform: {
+                //A constant that will keep all of our data stored.
+                cloud.getAll(dummy: NewSquirrelUser()) { (people) in
+                    for person in people {
+                        if person.username == accountUsername {
+                        currentUsersSightings = Int(person.greySquirrelSightings + person.redSquirrelSightings)
+                        }
+                    }
+                }
+            })
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(
-            RadialGradient(gradient: Gradient(colors: [.white, .orange]), center: .center, startRadius: 2, endRadius: 650)
-                .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-        )
     }
+    
+    
 }
 
 struct SquirrelTrophy_Previews: PreviewProvider {

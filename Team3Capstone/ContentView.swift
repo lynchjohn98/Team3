@@ -24,8 +24,11 @@ import MapKit
 //Get app loaded onto iPad and iPhone
 
 //UserID does not need to be UUID, it is tied to the appID
-let cloud = AppDevWithSwiftCloud(appID: "d226c704-a9e0-11eb-bcbc-0242ac130002",
+//I remade the appID because any of the for loops I created weren't working
+let cloud = AppDevWithSwiftCloud(appID: "f84e7b88-abfd-11eb-8529-0242ac130003",
                                  userID: "e57be85c-a9e0-11eb-bcbc-0242ac130002")
+
+
 
 //Create testflight, distribute app on test flight, and see how it works
 //Will give them the ability to load in test flight app first, in test flight you will see your app, download it and run it on the phone
@@ -39,22 +42,26 @@ struct NewSquirrelUser: Hashable, Codable {
     var greySquirrelSightings : Double = 0
     var redSquirrelSightings : Double = 0
     //Make array of squirrel
-    //var squirrels : [SquirrelLocation] = []
+    var squirrels = [SquirrelLocation]()
 }
 
 //Create a storage for our locations for the pins located on the map
-//struct SquirrelLocation : Hashable, Codable, Identifiable {
-//    var id = UUID()
-//    var title = String()
-//    Store a lat and long, those will be codable.
-//    Make a seperate array of annotations (populate when update data from cloud)
-//    var coordinate = CLLocationCoordinate2D()
-//}
+struct SquirrelLocation : Hashable, Codable, Identifiable {
+    var id = UUID()
+    //Store a lat and long, those will be codable.
+    //Make a seperate array of annotations (populate when update data from cloud)
+    var latitiude = Double()
+    var longitude = Double()
+    
+}
 
 //Global username
 var accountUsername = "User"
 //Need a var to check if the user made an account or not
 var createdAccount : Bool = false
+//Variable to store and track the current users id
+var userID : String = ""
+
 
 struct ContentView: View {
     
@@ -82,7 +89,7 @@ struct ContentView: View {
                                 .multilineTextAlignment(.center)
                             TextField("Enter your username", text: $selectedUsername)
                             Button(action: {
-                                cloud.save(data: NewSquirrelUser(username: accountUsername, greySquirrelSightings: 0, redSquirrelSightings: 0))
+                                cloud.save(data: NewSquirrelUser(username: selectedUsername, greySquirrelSightings : 0, redSquirrelSightings : 0, squirrels : []))
                                 accountUsername = selectedUsername
                                 createdAccount = true
                                 showUserSignUp = false
@@ -99,10 +106,9 @@ struct ContentView: View {
                             for i in 0..<10 {
                                 let randomGrey = Int.random(in: 0..<15)
                                 let randomRed = Int.random(in: 0..<15)
-                                cloud.save(data: NewSquirrelUser(username:"Tester"+String(i), greySquirrelSightings: Double(randomGrey), redSquirrelSightings: Double(randomRed)))
+                                cloud.save(data: NewSquirrelUser(username: "Tester " + String(i), greySquirrelSightings : Double(randomGrey), redSquirrelSightings: Double(randomRed), squirrels: []))
                                 //Empty array of squirrel locations
                             }
-                            
                         },
                                label: {
                                 Text(Image(systemName: "person.3"))
@@ -121,22 +127,20 @@ struct ContentView: View {
                             Text(Image(systemName: "trash.fill"))
                         })
                         Spacer()
-                           
                     }
                     Spacer()
-                        .frame(width:25, height:25)
+                        .frame(width:10, height:2)
                     Text("Where are the Squirrels?")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .multilineTextAlignment(.center)
                     
                     VStack {
-                        Text("Help Monitor the Environmental Conditions")
+                        Text("Help Monitor the Environmental Conditions Affecting our Local Urban Wildlife!")
+                            .font(.caption)
+                            .multilineTextAlignment(.center)
                         
                     }
-                    
-                    
-                    
                     
                     Spacer()
                         .background(Image("titlePageSquirrel")

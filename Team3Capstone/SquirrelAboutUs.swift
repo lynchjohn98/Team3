@@ -10,7 +10,10 @@ import SwiftUI
 struct SquirrelAboutUs: View {
     var body: some View {
         VStack {
-            Text("Squirrel Information")
+            Text("About The App")
+                .multilineTextAlignment(.center)
+                .foregroundColor(.black)
+                .font(.title2)
             Spacer()
                 .frame(width: 50, height: 50)
             HStack {
@@ -19,6 +22,7 @@ struct SquirrelAboutUs: View {
                     .font(.body)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 5.0)
+                    
              
             }
         }

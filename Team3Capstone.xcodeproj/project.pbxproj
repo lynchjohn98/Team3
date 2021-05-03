@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E60B1AA2640296600369653 /* AppDevWithSwiftLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 5E60B1A92640296600369653 /* AppDevWithSwiftLibrary */; };
 		5E7C3AB22630830C007BF3C5 /* SquirrelSighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C3AB12630830C007BF3C5 /* SquirrelSighting.swift */; };
 		5E7C3AB826309976007BF3C5 /* SquirrelAboutUs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C3AB726309976007BF3C5 /* SquirrelAboutUs.swift */; };
 		5E7C3ABF26323135007BF3C5 /* SquirrelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C3ABE26323135007BF3C5 /* SquirrelData.swift */; };
 		5E7C3AC22632314F007BF3C5 /* SquirrelTrophy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C3AC12632314F007BF3C5 /* SquirrelTrophy.swift */; };
 		5E7C3AC52632317A007BF3C5 /* SquirrelUserPictures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7C3AC42632317A007BF3C5 /* SquirrelUserPictures.swift */; };
 		5ED5D7C9263B7D2900DCA527 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E0BD28E263A09CE0097C361 /* CloudKit.framework */; };
-		5EE8F00D263CA61C000E537F /* AppDevWithSwiftLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 5EE8F00C263CA61C000E537F /* AppDevWithSwiftLibrary */; };
 		5EF8FC13262E32F500F1FBBD /* Team3CapstoneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF8FC12262E32F500F1FBBD /* Team3CapstoneApp.swift */; };
 		5EF8FC15262E32F500F1FBBD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF8FC14262E32F500F1FBBD /* ContentView.swift */; };
 		5EF8FC17262E32F600F1FBBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EF8FC16262E32F600F1FBBD /* Assets.xcassets */; };
@@ -41,7 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5EE8F00D263CA61C000E537F /* AppDevWithSwiftLibrary in Frameworks */,
+				5E60B1AA2640296600369653 /* AppDevWithSwiftLibrary in Frameworks */,
 				5ED5D7C9263B7D2900DCA527 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -117,7 +117,7 @@
 			);
 			name = Team3Capstone;
 			packageProductDependencies = (
-				5EE8F00C263CA61C000E537F /* AppDevWithSwiftLibrary */,
+				5E60B1A92640296600369653 /* AppDevWithSwiftLibrary */,
 			);
 			productName = Team3Capstone;
 			productReference = 5EF8FC0F262E32F500F1FBBD /* Team3Capstone.app */;
@@ -147,7 +147,7 @@
 			);
 			mainGroup = 5EF8FC06262E32F500F1FBBD;
 			packageReferences = (
-				5EE8F00B263CA61C000E537F /* XCRemoteSwiftPackageReference "AppDevWithSwiftLibrary" */,
+				5E60B1A82640296600369653 /* XCRemoteSwiftPackageReference "AppDevWithSwiftLibrary" */,
 			);
 			productRefGroup = 5EF8FC10262E32F500F1FBBD /* Products */;
 			projectDirPath = "";
@@ -374,20 +374,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5EE8F00B263CA61C000E537F /* XCRemoteSwiftPackageReference "AppDevWithSwiftLibrary" */ = {
+		5E60B1A82640296600369653 /* XCRemoteSwiftPackageReference "AppDevWithSwiftLibrary" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/iitgrad/AppDevWithSwiftLibrary.git";
 			requirement = {
-				kind = exactVersion;
-				version = 1.8.5;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.8.9;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5EE8F00C263CA61C000E537F /* AppDevWithSwiftLibrary */ = {
+		5E60B1A92640296600369653 /* AppDevWithSwiftLibrary */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5EE8F00B263CA61C000E537F /* XCRemoteSwiftPackageReference "AppDevWithSwiftLibrary" */;
+			package = 5E60B1A82640296600369653 /* XCRemoteSwiftPackageReference "AppDevWithSwiftLibrary" */;
 			productName = AppDevWithSwiftLibrary;
 		};
 /* End XCSwiftPackageProductDependency section */

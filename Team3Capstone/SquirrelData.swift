@@ -47,19 +47,24 @@ struct SquirrelData: View {
 struct SquirrelDataCharts : View {
     
     @State var amountOfUsers : Int = 0
-    @State var allGreySquirrelSightings : Double = 0
-    @State var allRedSquirrelSightings : Double = 0
+    @State var allGreySquirrelSightings = 0
+    @State var allRedSquirrelSightings  = 0
+    @State var currentUserGraySightings = 0
+    @State var currentUserRedSightings = 0
     
     var body: some View {
         VStack{
-            Spacer()
             VStack {
                 Text("There are a total of " + String(amountOfUsers) + " users")
-            }
-            
-            VStack {
+                    .multilineTextAlignment(.center)
+                    .font(.title2)
                 Spacer()
-                Text("Global findings : All Users Grey and Red Squirrel Findings")
+                    .frame(width:50, height: 50)
+            }
+            VStack {
+                
+                Text("All Users Grey vs. Red Squirrel Findings")
+                    .multilineTextAlignment(.center)
                 HStack {
                     Text(String(allGreySquirrelSightings))
                         .foregroundColor(.gray)
@@ -67,27 +72,32 @@ struct SquirrelDataCharts : View {
                     Text(String(allRedSquirrelSightings))
                         .foregroundColor(.red)
                 }
-                PieChartView(slices: [allGreySquirrelSightings, 50.0, allRedSquirrelSightings], colors: [Color.gray, Color.orange, Color.red])
                 
+                VStack {
+                    PieChartView(slices: [Double(allGreySquirrelSightings), Double(allRedSquirrelSightings)], colors: [Color.gray, Color.red])
+                        .frame(width:150, height:150)
+                }
                 Spacer()
-                Text("Your findings : Grey and Red Squirrel")
+                    .frame(width: 50, height: 50)
+                Text("Your Grey vs. Red Squirrel Findings")
                 if (createdAccount == false) {
                     Text("Please make an account to start finding squirrels!")
+                        .foregroundColor(.red)
+                        .font(.title)
+                        .multilineTextAlignment(.center)
                 }
                 else {
-                    
+                    HStack {
+                        Text(String(currentUserGraySightings))
+                            .foregroundColor(.gray)
+                        Text(" VS ")
+                        Text(String(currentUserRedSightings))
+                            .foregroundColor(.red)
+                    }
+                    PieChartView(slices: [Double(currentUserGraySightings), Double(currentUserRedSightings)], colors: [Color.gray, Color.red])
+                        .frame(width:150, height:150)
                 }
-                
-                Spacer()
-                
-                
-                
             }
-            
-            VStack {
-                
-            }
-            Text("Total Findings!")
         }
         //As our data view appears, need to fill in our information
         .onAppear(perform: {
@@ -95,29 +105,51 @@ struct SquirrelDataCharts : View {
             cloud.getAll(dummy: NewSquirrelUser()) { (people) in
                 for person in people {
                     amountOfUsers += 1
-                    allGreySquirrelSightings += person.greySquirrelSightings
-                    allRedSquirrelSightings += person.redSquirrelSightings
-                    
+                    allGreySquirrelSightings += Int(person.greySquirrelSightings)
+                    allRedSquirrelSightings += Int(person.redSquirrelSightings)
+                    if person.username == accountUsername {
+                        currentUserGraySightings += Int(person.greySquirrelSightings)
+                        currentUserRedSightings += Int(person.redSquirrelSightings)
+                    }
                 }
-                print(amountOfUsers)
             }
-            print("This has finished parsing")
-
         })
     }
 }
 
 //Struct for map with annotations data view
 struct SquirrelDataMap : View {
-    //Annotated map provided in cloud snippet
-    @State private var region =
-        MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 48.8566, longitude: 2.325),
-                           span: MKCoordinateSpan(latitudeDelta: 0.12, longitudeDelta: 0.12))
-    
-    
+    //Current user
+    @State var currentUser = NewSquirrelUser()
+    //Current users sightings
+    @State var currentUserLocations : [SquirrelLocation] = []
+
+    //Coordinate var for the map pin
+    @State var coordinate = CLLocationCoordinate2D()
+    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 41.789722, longitude: -87.599724),
+        span: MKCoordinateSpan(latitudeDelta: 0.12, longitudeDelta: 0.12))
     
     var body: some View {
-        Map(coordinateRegion: $region)
+        VStack {
+            Map(coordinateRegion: $region, annotationItems: currentUserLocations) {  (location) -> MapPin in
+                MapPin(coordinate: CLLocationCoordinate2D(latitude: 41.789722, longitude: -87.599724))
+            }
+        }
+        .onAppear(perform:  {
+            cloud.getAll(dummy: NewSquirrelUser()) {
+                (people) in
+                for person in people {
+                    if person.username == accountUsername {
+                        currentUser = person
+                        for sighting in currentUser.squirrels {
+                            coordinate.latitude = sighting.latitiude
+                            coordinate.longitude = sighting.longitude
+                            
+                        }
+                    }
+                }
+            }
+        })
     }
 }
 
