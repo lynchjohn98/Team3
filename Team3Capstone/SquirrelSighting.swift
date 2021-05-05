@@ -10,8 +10,6 @@ import AppDevWithSwiftLibrary
 import Foundation
 import MapKit
 
-
-
 struct SquirrelSighting: View {
     
     //Simple binary representation 0 is for grey, 1 is for red
@@ -27,6 +25,7 @@ struct SquirrelSighting: View {
     //Cannot attach two alerts to the same VStack. Should be able to put two alerts on two different views in the VStack
     @State var showError = false
     @State var errorMessage : String = ""
+    
     var body: some View {
         
         VStack {
@@ -67,6 +66,7 @@ struct SquirrelSighting: View {
                             .resizable()
                             .scaledToFit()
                             .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                            .frame(width:175, height:175, alignment: .leading)
                     }
                 })
                 VStack {
@@ -92,6 +92,7 @@ struct SquirrelSighting: View {
                             .resizable()
                             .scaledToFit()
                             .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                            .multilineTextAlignment(.center)
                             .overlay(Circle()
                                         .stroke(Color.orange, lineWidth: 4))
                     }
@@ -109,7 +110,9 @@ struct SquirrelSighting: View {
                     Text("Orange/Rust back")
                     Text("Orange Bellies")
                     Text("Black-Fringed Tails")
+                    
                 }
+                .padding()
             }
             
             VStack {
@@ -135,7 +138,8 @@ struct SquirrelSighting: View {
                             (people) in
                             for person in people {
                                 //Check if this is our current user of the app
-                                if person.username == accountUsername {
+                                //Make a note of this here
+                                if person.id.uuidString == cloud.getUserID() {
                                     //Grab the sighting location via finding the users current location
                                     let currentLocation = location.lastKnownLocation
                                     let squirrelSighting : SquirrelLocation = SquirrelLocation(latitiude: Double(currentLocation!.latitude), longitude: Double( currentLocation!.longitude))
@@ -156,7 +160,9 @@ struct SquirrelSighting: View {
                         }
                     }
                 }, label: {
-                    Text("Submit!")
+                    Image("AcornSighting")
+                        .resizable()
+                        .frame(width:350,height:200)
                 })
                 
                 .alert(isPresented: $showError) {

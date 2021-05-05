@@ -19,6 +19,7 @@ import SwiftUI
 import AppDevWithSwiftLibrary
 import MapKit
 
+
 //Create our cloud kit with generated UUID Strings. Generated online from this tool https://www.uuidgenerator.net/version1
 //Generate a new one each time or have them set?
 //Get app loaded onto iPad and iPhone
@@ -52,7 +53,6 @@ struct SquirrelLocation : Hashable, Codable, Identifiable {
     //Make a seperate array of annotations (populate when update data from cloud)
     var latitiude = Double()
     var longitude = Double()
-    
 }
 
 //Global username
@@ -72,109 +72,38 @@ struct ContentView: View {
     var body: some View {
         
         NavigationView {
-
-            Group {
-            
-                VStack {
                     
-                    HStack {
-                        Spacer()
-                        Button(action: {
-                            showUserSignUp = true
-                        }, label: {
-                            Text(Image(systemName: "person.badge.plus"))
-                        })
-                        .sheet(isPresented: $showUserSignUp) {
-                            Text("Please enter your username")
-                                .multilineTextAlignment(.center)
-                            TextField("Enter your username", text: $selectedUsername)
-                            Button(action: {
-                                cloud.save(data: NewSquirrelUser(username: selectedUsername, greySquirrelSightings : 0, redSquirrelSightings : 0, squirrels : []))
-                                accountUsername = selectedUsername
-                                createdAccount = true
-                                showUserSignUp = false
-                                
-                            }, label: {
-                                Text("Submit")
-                            })
+            VStack {
+                
+                        VStack {
+                            
+                            Image("SquirrelsTopImagePage")
+                                .resizable()
+                                .scaledToFit()
+                                //.frame(width: 600, height:100)
                         }
-                        .multilineTextAlignment(.center)
-                       
-                        Spacer()
-                        Button(action: {
-                            //This will generate ten random users with arbitrary data.
-                            for i in 0..<10 {
-                                let randomGrey = Int.random(in: 0..<15)
-                                let randomRed = Int.random(in: 0..<15)
-                                cloud.save(data: NewSquirrelUser(username: "Tester " + String(i), greySquirrelSightings : Double(randomGrey), redSquirrelSightings: Double(randomRed), squirrels: []))
-                                //Empty array of squirrel locations
-                            }
-                        },
-                               label: {
-                                Text(Image(systemName: "person.3"))
-                        })
-                        Spacer()
                         
-                        //I want this button to clear all data that I currently have populated. I am trying to use delete by ID but not sure if it works
-                        Button(action: {
-                            cloud.getAll(dummy: NewSquirrelUser()) {
-                                (people) in
-                                for person in people {
-                                    cloud.deleteByID(dummy: NewSquirrelUser(), id: person.id.uuidString)
-                                }
-                            }
-                        }, label: {
-                            Text(Image(systemName: "trash.fill"))
-                        })
-                        Spacer()
-                    }
-                    Spacer()
-                        .frame(width:10, height:2)
-                    Text("Where are the Squirrels?")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .multilineTextAlignment(.center)
-                    
-                    VStack {
-                        Text("Help Monitor the Environmental Conditions Affecting our Local Urban Wildlife!")
-                            .font(.caption)
-                            .multilineTextAlignment(.center)
-                        
-                    }
-                    
-                    Spacer()
-                        .background(Image("titlePageSquirrel")
+                        VStack {
+                            Image("titlePageSquirrel")
+                                .resizable()
+                                .scaledToFit()
+                                //.frame(width:350,height:)
+                            
+                            NavigationLink(
+                                destination: SquirrelSighting(),
+                                label: {
+                                    Image("AcornTitlePage")
                                         .resizable()
-                                        .frame(width: 400, height: 400))
+                                        .scaledToFit()
+                                        .frame(width:225,height:110)
+                                })
+                        }
                     
-                    
-                    Spacer()
-                        .frame(height: 50.0)
-                    
-                    //Get started button vertical stack
-                    HStack {
-                        NavigationLink(
-                            destination: SquirrelSighting(),
-                            label: {
-                                Text("I See A Squirrel!")
-                                    .font(.title2)
-                                    .fontWeight(.bold)
-                                    .multilineTextAlignment(.center)
-                                    .foregroundColor(.green)
-                                    .background(Image("acorn")
-                                                    .resizable()
-                                                    .frame(width:225,height:190))
-                            })
-                        Spacer()
-                            .frame(width:50)
-                    }
-                    Spacer()
-                        .frame(width: 50.0, height: 100)
-                    
-                    
+  
                     //HStack at bottom to navigate through each page
                     //Link the sighting to the trophy. After someone puts in a squirrel it will link to a trophy case
-                    HStack {
+                    VStack {
+                        HStack {
                         NavigationLink(
                             destination: SquirrelSighting(),
                             label: {
@@ -215,6 +144,7 @@ struct ContentView: View {
                                     .foregroundColor(.white)
                             })
                             .frame(width:60)
+                        }
                     }
                     
                 }
@@ -222,19 +152,71 @@ struct ContentView: View {
                 .background(
                     RadialGradient(gradient: Gradient(colors: [.white, .orange]), center: .center, startRadius: 2, endRadius: 650)
                         .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-                )
-            }
+            )
         }
     }
-    
 }
-
-
-
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
 }
+
+
+
+//Logic for buttons at top
+/*
+ VStack {
+     //Spacer()
+     HStack {
+     Button(action: {
+         showUserSignUp = true
+     }, label: {
+         Text(Image(systemName: "person.badge.plus"))
+     })
+     .sheet(isPresented: $showUserSignUp) {
+         Text("Please enter your username")
+             .multilineTextAlignment(.center)
+         TextField("Enter your username", text: $selectedUsername)
+         Button(action: {
+             cloud.save(data: NewSquirrelUser(username: selectedUsername, greySquirrelSightings : 0, redSquirrelSightings : 0, squirrels : []))
+             accountUsername = selectedUsername
+             createdAccount = true
+             showUserSignUp = false
+             
+         }, label: {
+             Text("Submit")
+         })
+     }
+     .multilineTextAlignment(.center)
+    
+     //Spacer()
+     Button(action: {
+         //This will generate ten random users with arbitrary data.
+         for i in 0..<10 {
+             let randomGrey = Int.random(in: 0..<15)
+             let randomRed = Int.random(in: 0..<15)
+             cloud.save(data: NewSquirrelUser(username: "Tester " + String(i), greySquirrelSightings : Double(randomGrey), redSquirrelSightings: Double(randomRed), squirrels: []))
+             //Empty array of squirrel locations
+         }
+     },
+            label: {
+             Text(Image(systemName: "person.3"))
+     })
+     //Spacer()
+     
+     //I want this button to clear all data that I currently have populated. I am trying to use delete by ID but not sure if it works
+     Button(action: {
+         cloud.getAll(dummy: NewSquirrelUser()) {
+             (people) in
+             for person in people {
+                 cloud.deleteByID(dummy: NewSquirrelUser(), id: person.id.uuidString)
+             }
+         }
+     }, label: {
+         Text(Image(systemName: "trash.fill"))
+     })
+     Spacer()
+ }
+ */

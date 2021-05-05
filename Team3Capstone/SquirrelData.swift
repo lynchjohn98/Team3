@@ -9,12 +9,66 @@ import SwiftUI
 import AppDevWithSwiftLibrary
 import MapKit
 
+//This is a boolean that is used to avoid the onAppear function from firing again
+var hasCalculated : Bool = false
+
 struct SquirrelData: View {
+    
+    @State var amountOfUsers : Int = 0
+    @State var allGreySquirrelSightings = 0
+    @State var allRedSquirrelSightings  = 0
+    @State var currentUserGraySightings = 0
+    @State var currentUserRedSightings = 0
     
     var body: some View {
     
         TabView {
-            SquirrelDataCharts()
+            VStack{
+                VStack {
+                    Text("There are a total of " + String(amountOfUsers) + " users")
+                        .multilineTextAlignment(.center)
+                        .font(.title2)
+                    Spacer()
+                        .frame(width:50, height: 50)
+                }
+                VStack {
+                    
+                    Text("All Users Grey vs. Red Squirrel Findings")
+                        .multilineTextAlignment(.center)
+                    HStack {
+                        Text(String(allGreySquirrelSightings))
+                            .foregroundColor(.gray)
+                        Text(" VS ")
+                        Text(String(allRedSquirrelSightings))
+                            .foregroundColor(.red)
+                    }
+                    
+                    VStack {
+                        PieChartView(slices: [Double(allGreySquirrelSightings), Double(allRedSquirrelSightings)], colors: [Color.gray, Color.red])
+                            .frame(width:150, height:150)
+                    }
+                    Spacer()
+                        .frame(width: 50, height: 50)
+                    Text("Your Grey vs. Red Squirrel Findings")
+                    if (createdAccount == false) {
+                        Text("Please make an account to start finding squirrels!")
+                            .foregroundColor(.red)
+                            .font(.title)
+                            .multilineTextAlignment(.center)
+                    }
+                    else {
+                        HStack {
+                            Text(String(currentUserGraySightings))
+                                .foregroundColor(.gray)
+                            Text(" VS ")
+                            Text(String(currentUserRedSightings))
+                                .foregroundColor(.red)
+                        }
+                        PieChartView(slices: [Double(currentUserGraySightings), Double(currentUserRedSightings)], colors: [Color.gray, Color.red])
+                            .frame(width:150, height:150)
+                    }
+                }
+            }
                 .padding()
                 .tabItem {
                     Image(systemName: "1.circle")
@@ -38,69 +92,11 @@ struct SquirrelData: View {
                     RadialGradient(gradient: Gradient(colors: [.white, .orange]), center: .center, startRadius: 2, endRadius: 650)
                         .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
                 )
-        
-        }
-    }
-}
-
-//Struct for pie chart data view
-struct SquirrelDataCharts : View {
-    
-    @State var amountOfUsers : Int = 0
-    @State var allGreySquirrelSightings = 0
-    @State var allRedSquirrelSightings  = 0
-    @State var currentUserGraySightings = 0
-    @State var currentUserRedSightings = 0
-    
-    var body: some View {
-        VStack{
-            VStack {
-                Text("There are a total of " + String(amountOfUsers) + " users")
-                    .multilineTextAlignment(.center)
-                    .font(.title2)
-                Spacer()
-                    .frame(width:50, height: 50)
-            }
-            VStack {
-                
-                Text("All Users Grey vs. Red Squirrel Findings")
-                    .multilineTextAlignment(.center)
-                HStack {
-                    Text(String(allGreySquirrelSightings))
-                        .foregroundColor(.gray)
-                    Text(" VS ")
-                    Text(String(allRedSquirrelSightings))
-                        .foregroundColor(.red)
-                }
-                
-                VStack {
-                    PieChartView(slices: [Double(allGreySquirrelSightings), Double(allRedSquirrelSightings)], colors: [Color.gray, Color.red])
-                        .frame(width:150, height:150)
-                }
-                Spacer()
-                    .frame(width: 50, height: 50)
-                Text("Your Grey vs. Red Squirrel Findings")
-                if (createdAccount == false) {
-                    Text("Please make an account to start finding squirrels!")
-                        .foregroundColor(.red)
-                        .font(.title)
-                        .multilineTextAlignment(.center)
-                }
-                else {
-                    HStack {
-                        Text(String(currentUserGraySightings))
-                            .foregroundColor(.gray)
-                        Text(" VS ")
-                        Text(String(currentUserRedSightings))
-                            .foregroundColor(.red)
-                    }
-                    PieChartView(slices: [Double(currentUserGraySightings), Double(currentUserRedSightings)], colors: [Color.gray, Color.red])
-                        .frame(width:150, height:150)
-                }
-            }
         }
         //As our data view appears, need to fill in our information
+        //need to fix this between the tabs
         .onAppear(perform: {
+      
             //A constant that will keep all of our data stored.
             cloud.getAll(dummy: NewSquirrelUser()) { (people) in
                 for person in people {
@@ -112,6 +108,7 @@ struct SquirrelDataCharts : View {
                         currentUserRedSightings += Int(person.redSquirrelSightings)
                     }
                 }
+            
             }
         })
     }
@@ -136,6 +133,7 @@ struct SquirrelDataMap : View {
             }
         }
         .onAppear(perform:  {
+            print("Starting on perform")
             cloud.getAll(dummy: NewSquirrelUser()) {
                 (people) in
                 for person in people {
