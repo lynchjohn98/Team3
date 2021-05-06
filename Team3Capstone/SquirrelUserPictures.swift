@@ -24,7 +24,7 @@ struct SquirrelUserPictures: View {
             Button(action: {
                 showCameraPicker = true
             }, label: {
-                Text("Camera")
+                Text("Upload your Squirrel Photos!")
             })
             .sheet(isPresented: $showCameraPicker, content: {
                 ImagePicker(isShown: $showCameraPicker, image: $image, imagePNG: $uiImage, source: ImagePicker.SourceType.photoLibrary)

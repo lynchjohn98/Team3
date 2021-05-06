@@ -24,6 +24,7 @@
 		5E0BD28B263A09B90097C361 /* Team3Capstone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Team3Capstone.entitlements; sourceTree = "<group>"; };
 		5E0BD28E263A09CE0097C361 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		5E28963026449410004E2EEF /* Chicago.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Chicago.gpx; path = ../../Desktop/Chicago.gpx; sourceTree = "<group>"; };
+		5E2896322644AA44004E2EEF /* SFPro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = SFPro.ttf; path = ../../Desktop/SFPro.ttf; sourceTree = "<group>"; };
 		5E7C3AB12630830C007BF3C5 /* SquirrelSighting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquirrelSighting.swift; sourceTree = "<group>"; };
 		5E7C3AB726309976007BF3C5 /* SquirrelAboutUs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquirrelAboutUs.swift; sourceTree = "<group>"; };
 		5E7C3ABE26323135007BF3C5 /* SquirrelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquirrelData.swift; sourceTree = "<group>"; };
@@ -61,6 +62,7 @@
 		5EF8FC06262E32F500F1FBBD = {
 			isa = PBXGroup;
 			children = (
+				5E2896322644AA44004E2EEF /* SFPro.ttf */,
 				5E28963026449410004E2EEF /* Chicago.gpx */,
 				5EF8FC11262E32F500F1FBBD /* Team3Capstone */,
 				5EF8FC10262E32F500F1FBBD /* Products */,
