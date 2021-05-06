@@ -54,21 +54,17 @@ struct SquirrelSighting: View {
                 }, label: {
                     
                     if greySquirrelSelected {
-                        Image("squirrelSelectGrey")
-                            .resizable()
-                            .scaledToFit()
-                            .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                        Image("grey")
+                            .clipShape(Circle())
                             .overlay(Circle()
                                         .stroke(Color.orange, lineWidth: 4))
                     }
                     else {
-                        Image("squirrelSelectGrey")
-                            .resizable()
-                            .scaledToFit()
+                        Image("grey")
                             .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                            .frame(width:175, height:175, alignment: .leading)
-                    }
+                        }
                 })
+                Spacer()
                 VStack {
                     Text("Grey Fox Squirrel")
                         .font(.title3)
@@ -77,6 +73,7 @@ struct SquirrelSighting: View {
                     Text("White or Grey Bellies")
                     Text("White-Fringed Tails")
                 }
+                
             }
             
             //Second HStack for the Red Fox Squirrel
@@ -88,16 +85,15 @@ struct SquirrelSighting: View {
                     }
                 }, label: {
                     if redSquirrelSelected {
-                        Image("squirrelSelectRed")
+                        Image("red")
                             .resizable()
                             .scaledToFit()
                             .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                            .multilineTextAlignment(.center)
                             .overlay(Circle()
                                         .stroke(Color.orange, lineWidth: 4))
                     }
                     else {
-                        Image("squirrelSelectRed")
+                        Image("red")
                             .resizable()
                             .scaledToFit()
                             .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
@@ -139,14 +135,12 @@ struct SquirrelSighting: View {
                             for person in people {
                                 //Check if this is our current user of the app
                                 //Make a note of this here
-                                if person.id.uuidString == cloud.getUserID() {
+                                if person.username == accountUsername {
                                     //Grab the sighting location via finding the users current location
                                     let currentLocation = location.lastKnownLocation
-                                    let squirrelSighting : SquirrelLocation = SquirrelLocation(latitiude: Double(currentLocation!.latitude), longitude: Double( currentLocation!.longitude))
+                                    let squirrelLocation : SquirrelLocation = SquirrelLocation(latitiude: Double(currentLocation!.latitude), longitude: Double(currentLocation!.longitude))
                                     var updatedUserData = person
-                                    print("Found user's current location")
-                                    print(squirrelSighting)
-                                    updatedUserData.squirrels.append(squirrelSighting)
+                                    updatedUserData.squirrels.append(squirrelLocation)
                                     if (greySquirrelSelected) {
                                         updatedUserData.greySquirrelSightings += 1
                                         cloud.save(data: updatedUserData)
@@ -180,10 +174,9 @@ struct SquirrelSighting: View {
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         )
         .onAppear(perform: {
-            
+            print("Starting location services")
             //Start location services
             location.start()
-            
         })
     }
     

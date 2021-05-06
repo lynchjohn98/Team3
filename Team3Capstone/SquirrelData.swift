@@ -12,6 +12,13 @@ import MapKit
 //This is a boolean that is used to avoid the onAppear function from firing again
 var hasCalculated : Bool = false
 
+
+struct Location: Identifiable {
+    var id = UUID()
+    var title = String()
+    var coordinate = CLLocationCoordinate2D()
+}
+
 struct SquirrelData: View {
     
     @State var amountOfUsers : Int = 0
@@ -114,41 +121,38 @@ struct SquirrelData: View {
     }
 }
 
+
 //Struct for map with annotations data view
 struct SquirrelDataMap : View {
-    //Current user
-    @State var currentUser = NewSquirrelUser()
-    //Current users sightings
-    @State var currentUserLocations : [SquirrelLocation] = []
-
-    //Coordinate var for the map pin
-    @State var coordinate = CLLocationCoordinate2D()
-    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 41.789722, longitude: -87.599724),
-        span: MKCoordinateSpan(latitudeDelta: 0.12, longitudeDelta: 0.12))
+    @State private var allSquirrelSightings : [SquirrelLocation] = []
     
-    var body: some View {
-        VStack {
-            Map(coordinateRegion: $region, annotationItems: currentUserLocations) {  (location) -> MapPin in
-                MapPin(coordinate: CLLocationCoordinate2D(latitude: 41.789722, longitude: -87.599724))
+    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 41.881832, longitude: -87.623177),
+          span: MKCoordinateSpan(latitudeDelta: 0.12, longitudeDelta: 0.12))
+        
+        var body: some View {
+            
+            VStack {
+                Text("View All Users Sightings!")
+                    .fontWeight(.bold)
+                    .font(.title2)
+                    .multilineTextAlignment(.center)
+                Map(coordinateRegion: $region, annotationItems: allSquirrelSightings) {  (sighting) -> MapPin in
+                    let pin = CLLocationCoordinate2D(latitude: sighting.latitiude, longitude: sighting.longitude)
+                    return MapPin(coordinate: pin)
+                }
             }
-        }
-        .onAppear(perform:  {
-            print("Starting on perform")
-            cloud.getAll(dummy: NewSquirrelUser()) {
-                (people) in
-                for person in people {
-                    if person.username == accountUsername {
-                        currentUser = person
-                        for sighting in currentUser.squirrels {
-                            coordinate.latitude = sighting.latitiude
-                            coordinate.longitude = sighting.longitude
-                            
+            //When this appears, calculate all the sightings
+            .onAppear {
+                cloud.getAll(dummy: NewSquirrelUser()) {
+                    (people) in
+                    for person in people {
+                        for sighting in person.squirrels {
+                            allSquirrelSightings.append(SquirrelLocation(latitiude: sighting.latitiude, longitude: sighting.longitude))
                         }
                     }
                 }
             }
-        })
-    }
+        }
 }
 
 struct SquirrelData_Previews: PreviewProvider {
@@ -156,3 +160,41 @@ struct SquirrelData_Previews: PreviewProvider {
         SquirrelData()
     }
 }
+
+/*
+ 
+ //Current user
+ @State var currentUser = NewSquirrelUser()
+ //Current users sightings
+ @State var currentUserLocations : [SquirrelLocation] = []
+
+ //Coordinate var for the map pin
+ @State var coordinate = CLLocationCoordinate2D()
+ @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 41.789722, longitude: -87.599724),
+     span: MKCoordinateSpan(latitudeDelta: 0.12, longitudeDelta: 0.12))
+ 
+ var body: some View {
+     VStack {
+         Map(coordinateRegion: $region, annotationItems: currentUserLocations) {  (location) -> MapPin in
+             MapPin(coordinate: CLLocationCoordinate2D(latitude: 41.789722, longitude: -87.599724))
+         }
+     }
+     .onAppear(perform:  {
+         print("Starting on perform")
+         cloud.getAll(dummy: NewSquirrelUser()) {
+             (people) in
+             for person in people {
+                 if person.username == accountUsername {
+                     currentUser = person
+                     for sighting in currentUser.squirrels {
+                         coordinate.latitude = sighting.latitiude
+                         coordinate.longitude = sighting.longitude
+                         
+                     }
+                 }
+             }
+         }
+     })
+ }
+ 
+ */

@@ -75,11 +75,73 @@ struct ContentView: View {
                     
             VStack {
                 
-                        VStack {
+                HStack {
+                    Button(action: {
+                        showUserSignUp = true
+                    }, label: {
+                        Text(Image(systemName: "person.badge.plus"))
+                    })
+                    .sheet(isPresented: $showUserSignUp) {
+                        Text("Please enter your username")
+                            .multilineTextAlignment(.center)
+                        TextField("Enter your username", text: $selectedUsername)
+                        Button(action: {
+                            cloud.save(data: NewSquirrelUser(username: selectedUsername, greySquirrelSightings : 0, redSquirrelSightings : 0, squirrels : []))
+                            accountUsername = selectedUsername
+                            createdAccount = true
+                            showUserSignUp = false
                             
+                        }, label: {
+                            Text("Submit")
+                        })
+                    }
+                    .multilineTextAlignment(.center)
+                   
+                    //Spacer()
+                    Button(action: {
+                        //This will generate ten random users with arbitrary data.
+                        for i in 0..<10 {
+                            let randomGrey = Int.random(in: 0..<15)
+                            let randomRed = Int.random(in: 0..<15)
+                            let randomLat = CGFloat.random(in: 41.865000...42.02871)
+                            let randomLong = CGFloat.random(in: 87.635000...87.760000) * -1
+                            let lat = String(format: "%.6f", randomLat)
+                            let long = String(format: "%.6f", randomLong)
+                            let randomSighting : SquirrelLocation = SquirrelLocation(latitiude: Double(lat)!, longitude: Double(long)!)
+                            cloud.save(data: NewSquirrelUser(username: "Tester " + String(i), greySquirrelSightings : Double(randomGrey), redSquirrelSightings: Double(randomRed), squirrels: [randomSighting]))
+                            //Empty array of squirrel locations
+                        }
+                    },
+                           label: {
+                            Text(Image(systemName: "person.3"))
+                    })
+                    //Spacer()
+                    
+                    //I want this button to clear all data that I currently have populated. I am trying to use delete by ID but not sure if it works
+                    Button(action: {
+                        cloud.getAll(dummy: NewSquirrelUser()) {
+                            (people) in
+                            for person in people {
+                                cloud.deleteByID(dummy: NewSquirrelUser(), id: person.id.uuidString)
+                            }
+                        }
+                    }, label: {
+                        Text(Image(systemName: "trash.fill"))
+                    })
+                    Button(action: {
+                        
+                    }, label: {
+                        Text(Image(systemName: "person.fill"))
+                    })
+                }
+                .frame(width:80, height:25)
+                        VStack {
+                            //Doesn't need to be own vstack
+                            //
                             Image("SquirrelsTopImagePage")
                                 .resizable()
                                 .scaledToFit()
+                                .padding()
                                 //.frame(width: 600, height:100)
                         }
                         
@@ -152,7 +214,7 @@ struct ContentView: View {
                 .background(
                     RadialGradient(gradient: Gradient(colors: [.white, .orange]), center: .center, startRadius: 2, endRadius: 650)
                         .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
-            )
+                ).navigationBarHidden(true)
         }
     }
 }
