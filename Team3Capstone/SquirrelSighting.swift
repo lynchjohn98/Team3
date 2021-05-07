@@ -25,7 +25,7 @@ struct SquirrelSighting: View {
     //Cannot attach two alerts to the same VStack. Should be able to put two alerts on two different views in the VStack
     @State var showError = false
     @State var errorMessage : String = ""
-    
+    @State var errorTitle : String = ""
     var body: some View {
         
         VStack {
@@ -54,13 +54,19 @@ struct SquirrelSighting: View {
                 }, label: {
                     
                     if greySquirrelSelected {
-                        Image("grey")
+                        Image("greySquirrelSelect")
+                            .resizable()
+                            .scaledToFit()
+                            //.frame(width: 150, height: 150)
                             .clipShape(Circle())
                             .overlay(Circle()
                                         .stroke(Color.orange, lineWidth: 4))
+                            
                     }
                     else {
-                        Image("grey")
+                        Image("greySquirrelSelect")
+                            .resizable()
+                            .scaledToFit()
                             .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
                         }
                 })
@@ -73,7 +79,8 @@ struct SquirrelSighting: View {
                     Text("White or Grey Bellies")
                     Text("White-Fringed Tails")
                 }
-                
+                .foregroundColor(.black)
+                .padding()
             }
             
             //Second HStack for the Red Fox Squirrel
@@ -85,7 +92,7 @@ struct SquirrelSighting: View {
                     }
                 }, label: {
                     if redSquirrelSelected {
-                        Image("red")
+                        Image("squirrelSelectRed")
                             .resizable()
                             .scaledToFit()
                             .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
@@ -93,7 +100,7 @@ struct SquirrelSighting: View {
                                         .stroke(Color.orange, lineWidth: 4))
                     }
                     else {
-                        Image("red")
+                        Image("squirrelSelectRed")
                             .resizable()
                             .scaledToFit()
                             .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
@@ -106,8 +113,8 @@ struct SquirrelSighting: View {
                     Text("Orange/Rust back")
                     Text("Orange Bellies")
                     Text("Black-Fringed Tails")
-                    
                 }
+                .foregroundColor(.black)
                 .padding()
             }
             
@@ -116,15 +123,18 @@ struct SquirrelSighting: View {
                 //For the different error message
                 
                 Button(action: {
+                    print(createdAccount)
                     //Give another check if the user has an account, just so that adding data later doesn't need to check for this
                     if (!createdAccount) {
                         showError = true
                         errorMessage = "Please create an account before entering a sighting!"
+                        errorTitle = "Error!"
                     }
                     //Check if neither are selected, if neither are then alert the user to select one
                     if (!greySquirrelSelected && !redSquirrelSelected) {
                         showError = true
                         errorMessage = "You need to pick the squirrel you saw first!"
+                        errorTitle = "Error!"
                     }
                     
                     //Both passes are okay, means the user has an account and has made a selection properly
@@ -152,6 +162,9 @@ struct SquirrelSighting: View {
                                 }
                             }
                         }
+                        showError = true
+                        errorMessage = "You have successfully submitted your sighting!"
+                        errorTitle = "Success!"
                     }
                 }, label: {
                     Image("AcornSighting")
@@ -160,7 +173,7 @@ struct SquirrelSighting: View {
                 })
                 
                 .alert(isPresented: $showError) {
-                    Alert(title: Text("Error!"), message: Text(errorMessage), dismissButton: .default(Text("Got it!")))
+                    Alert(title: Text(errorTitle), message: Text(errorMessage), dismissButton: .default(Text("Got it!")))
                 }
                 Spacer()
             }

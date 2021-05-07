@@ -12,16 +12,28 @@ import CloudKit
 struct SquirrelTrophy: View {
 
     @State var currentUsersSightings = Int()
-    
+    @State var userRank = String()
+
     var body: some View {
         
         VStack {
             
+                
+//            Text("Welcome " + String(accountUsername))
+//                .foregroundColor(.black)
+//            Text("You have sighted " + String(currentUsersSightings) + " squirrels")
+//                .foregroundColor(.black)
+//            Text(String(accountUsername) + ", you are a:")
+//                .foregroundColor(.black)
+                
+             //   Text("Welcome " + String(accountUsername) + "! You have sighted " + String(currentUsersSightings) + " Squirrels!")
             VStack {
-        
-            Text("Welcome " + String(accountUsername))
-            Text("You have sighted " + String(currentUsersSightings) + " squirrels")
-            
+                Text("Welcome " + String(accountUsername) + "!")
+                Text("You have sighted " + String(currentUsersSightings) + " Squirrels!")
+                
+                Text("You are a: " + userRank)
+            }
+            .foregroundColor(.black)
             HStack {
                 Image("squirrelCartoon")
                     .resizable()
@@ -32,6 +44,7 @@ struct SquirrelTrophy: View {
                     Text("Squirrel Friend")
                         .font(.title3)
                         .fontWeight(.bold)
+                        .foregroundColor(.black)
                     Text("1-10 Squirrels Sighted")
                 }
             }
@@ -45,7 +58,9 @@ struct SquirrelTrophy: View {
                     Text("Squirrel Pro")
                         .font(.title3)
                         .fontWeight(.bold)
+                        .foregroundColor(.black)
                     Text("11-30 Squirrels Sighted")
+                        .foregroundColor(.black)
                 }
             }
             HStack {
@@ -58,26 +73,12 @@ struct SquirrelTrophy: View {
                     Text("Squirrel Expert")
                         .font(.title3)
                         .fontWeight(.bold)
+                        .foregroundColor(.black)
                     Text("31+ Squirrels Sighted")
+                        .foregroundColor(.black)
                 }
             }
-                VStack {
-            Text(String(accountUsername) + ", you are a:")
-                VStack {
-                    let squirrelCount = currentUsersSightings
-                    if (squirrelCount >= 0 && squirrelCount < 11) {
-                        Text("Squirrel Friend")
-                    }
-                    else if (squirrelCount >= 11 && squirrelCount < 31) {
-                        Text("Squirrel Pro")
-                    }
-                    else {
-                        Text("Squirrel Expert")
-                    }
-                    Spacer()
-                }
-                .frame(width:200, height: 50)
-                }
+
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(
@@ -86,6 +87,15 @@ struct SquirrelTrophy: View {
             )
             //As our data view appears, need to fill in our information
             .onAppear(perform: {
+                if (currentUsersSightings >= 0 && currentUsersSightings < 11) {
+                    userRank = "Squirrel Friend!"
+                }
+                else if (currentUsersSightings >= 11 && currentUsersSightings < 31) {
+                    userRank = "Squirrel Pro!"
+                }
+                else {
+                    userRank = "Squirrel Expert!"
+                }
                 //A constant that will keep all of our data stored.
                 cloud.getAll(dummy: NewSquirrelUser()) { (people) in
                     for person in people {
@@ -97,9 +107,7 @@ struct SquirrelTrophy: View {
             })
         }
     }
-    
-    
-}
+
 
 struct SquirrelTrophy_Previews: PreviewProvider {
     static var previews: some View {

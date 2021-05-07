@@ -35,6 +35,7 @@ struct SquirrelData: View {
                     Text("There are a total of " + String(amountOfUsers) + " users")
                         .multilineTextAlignment(.center)
                         .font(.title2)
+                        .foregroundColor(.black)
                     Spacer()
                         .frame(width:50, height: 50)
                 }
@@ -42,6 +43,7 @@ struct SquirrelData: View {
                     
                     Text("All Users Grey vs. Red Squirrel Findings")
                         .multilineTextAlignment(.center)
+                        .foregroundColor(.black)
                     HStack {
                         Text(String(allGreySquirrelSightings))
                             .foregroundColor(.gray)
@@ -136,6 +138,7 @@ struct SquirrelDataMap : View {
                     .fontWeight(.bold)
                     .font(.title2)
                     .multilineTextAlignment(.center)
+                    .foregroundColor(.black)
                 Map(coordinateRegion: $region, annotationItems: allSquirrelSightings) {  (sighting) -> MapPin in
                     let pin = CLLocationCoordinate2D(latitude: sighting.latitiude, longitude: sighting.longitude)
                     return MapPin(coordinate: pin)

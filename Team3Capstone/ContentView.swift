@@ -76,26 +76,6 @@ struct ContentView: View {
             VStack {
                 
                 HStack {
-                    Button(action: {
-                        showUserSignUp = true
-                    }, label: {
-                        Text(Image(systemName: "person.badge.plus"))
-                    })
-                    .sheet(isPresented: $showUserSignUp) {
-                        Text("Please enter your username")
-                            .multilineTextAlignment(.center)
-                        TextField("Enter your username", text: $selectedUsername)
-                        Button(action: {
-                            cloud.save(data: NewSquirrelUser(username: selectedUsername, greySquirrelSightings : 0, redSquirrelSightings : 0, squirrels : []))
-                            accountUsername = selectedUsername
-                            createdAccount = true
-                            showUserSignUp = false
-                            
-                        }, label: {
-                            Text("Submit")
-                        })
-                    }
-                    .multilineTextAlignment(.center)
                    
                     //Spacer()
                     Button(action: {
@@ -128,11 +108,7 @@ struct ContentView: View {
                     }, label: {
                         Text(Image(systemName: "trash.fill"))
                     })
-                    Button(action: {
-                        
-                    }, label: {
-                        Text(Image(systemName: "person.fill"))
-                    })
+                   
                 }
                 .frame(width:80, height:25)
                         VStack {
@@ -154,7 +130,7 @@ struct ContentView: View {
                             NavigationLink(
                                 destination: SquirrelSighting(),
                                 label: {
-                                    Image("AcornTitlePage")
+                                    Image("AcornTitlePageFinal")
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width:225,height:110)
@@ -166,14 +142,30 @@ struct ContentView: View {
                     //Link the sighting to the trophy. After someone puts in a squirrel it will link to a trophy case
                     VStack {
                         HStack {
-                        NavigationLink(
-                            destination: SquirrelSighting(),
-                            label: {
-                                Text(Image(systemName: "location.circle.fill"))
+                            Button(action: {
+                                showUserSignUp = true
+                            }, label: {
+                                Text(Image(systemName: "person.badge.plus"))
                                     .font(.system(size: 30))
                                     .foregroundColor(.white)
                             })
+                            .sheet(isPresented: $showUserSignUp) {
+                                Text("Please enter your username")
+                                    .multilineTextAlignment(.center)
+                                TextField("Enter your username", text: $selectedUsername)
+                                Button(action: {
+                                    cloud.save(data: NewSquirrelUser(username: selectedUsername, greySquirrelSightings : 0, redSquirrelSightings : 0, squirrels : []))
+                                    accountUsername = selectedUsername
+                                    createdAccount = true
+                                    showUserSignUp = false
+                                    
+                                }, label: {
+                                    Text("Submit")
+                                })
+                            }
+                            .multilineTextAlignment(.center)
                             .frame(width:60)
+                       
                         NavigationLink(
                             destination: SquirrelData(),
                             label: {
@@ -185,15 +177,18 @@ struct ContentView: View {
                         NavigationLink(
                             destination: SquirrelTrophy(),
                             label: {
-                                Text(Image(systemName: "questionmark.circle.fill"))
-                                    .font(.system(size: 30))
-                                    .foregroundColor(.white)
+                                Image("squirrelAccountPage")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 100, height: 100)
+                                    //.font(.system(size: 30))
+                                    //.foregroundColor(.white)
                             })
                             .frame(width:60)
                         NavigationLink(
                             destination: SquirrelAboutUs(),
                             label: {
-                                Text(Image(systemName: "book.circle.fill"))
+                                Text(Image(systemName: "book"))
                                     .font(.system(size: 30))
                                     .foregroundColor(.white)
                             })
@@ -201,7 +196,7 @@ struct ContentView: View {
                         NavigationLink(
                             destination: SquirrelUserPictures(),
                             label: {
-                                Text(Image(systemName: "camera.circle.fill"))
+                                Text(Image(systemName: "camera"))
                                     .font(.system(size: 30))
                                     .foregroundColor(.white)
                             })
@@ -229,56 +224,25 @@ struct ContentView_Previews: PreviewProvider {
 
 //Logic for buttons at top
 /*
- VStack {
-     //Spacer()
-     HStack {
+ Button(action: {
+     showUserSignUp = true
+ }, label: {
+     Text(Image(systemName: "person.badge.plus"))
+ })
+ .sheet(isPresented: $showUserSignUp) {
+     Text("Please enter your username")
+         .multilineTextAlignment(.center)
+     TextField("Enter your username", text: $selectedUsername)
      Button(action: {
-         showUserSignUp = true
+         cloud.save(data: NewSquirrelUser(username: selectedUsername, greySquirrelSightings : 0, redSquirrelSightings : 0, squirrels : []))
+         accountUsername = selectedUsername
+         createdAccount = true
+         showUserSignUp = false
+         
      }, label: {
-         Text(Image(systemName: "person.badge.plus"))
+         Text("Submit")
      })
-     .sheet(isPresented: $showUserSignUp) {
-         Text("Please enter your username")
-             .multilineTextAlignment(.center)
-         TextField("Enter your username", text: $selectedUsername)
-         Button(action: {
-             cloud.save(data: NewSquirrelUser(username: selectedUsername, greySquirrelSightings : 0, redSquirrelSightings : 0, squirrels : []))
-             accountUsername = selectedUsername
-             createdAccount = true
-             showUserSignUp = false
-             
-         }, label: {
-             Text("Submit")
-         })
-     }
-     .multilineTextAlignment(.center)
-    
-     //Spacer()
-     Button(action: {
-         //This will generate ten random users with arbitrary data.
-         for i in 0..<10 {
-             let randomGrey = Int.random(in: 0..<15)
-             let randomRed = Int.random(in: 0..<15)
-             cloud.save(data: NewSquirrelUser(username: "Tester " + String(i), greySquirrelSightings : Double(randomGrey), redSquirrelSightings: Double(randomRed), squirrels: []))
-             //Empty array of squirrel locations
-         }
-     },
-            label: {
-             Text(Image(systemName: "person.3"))
-     })
-     //Spacer()
-     
-     //I want this button to clear all data that I currently have populated. I am trying to use delete by ID but not sure if it works
-     Button(action: {
-         cloud.getAll(dummy: NewSquirrelUser()) {
-             (people) in
-             for person in people {
-                 cloud.deleteByID(dummy: NewSquirrelUser(), id: person.id.uuidString)
-             }
-         }
-     }, label: {
-         Text(Image(systemName: "trash.fill"))
-     })
-     Spacer()
  }
+ .multilineTextAlignment(.center)
+ 
  */

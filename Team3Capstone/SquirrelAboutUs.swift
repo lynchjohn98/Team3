@@ -21,6 +21,7 @@ struct SquirrelAboutUs: View {
                     .font(.body)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 5.0)
+                    .foregroundColor(.black)
                 }
             Spacer()
 //                VStack {
