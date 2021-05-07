@@ -246,3 +246,42 @@ struct ContentView_Previews: PreviewProvider {
  .multilineTextAlignment(.center)
  
  */
+
+/*
+ HStack {
+    
+     //Spacer()
+     Button(action: {
+         //This will generate ten random users with arbitrary data.
+         for i in 0..<10 {
+             let randomGrey = Int.random(in: 0..<15)
+             let randomRed = Int.random(in: 0..<15)
+             let randomLat = CGFloat.random(in: 41.865000...42.02871)
+             let randomLong = CGFloat.random(in: 87.635000...87.760000) * -1
+             let lat = String(format: "%.6f", randomLat)
+             let long = String(format: "%.6f", randomLong)
+             let randomSighting : SquirrelLocation = SquirrelLocation(latitiude: Double(lat)!, longitude: Double(long)!)
+             cloud.save(data: NewSquirrelUser(username: "Tester " + String(i), greySquirrelSightings : Double(randomGrey), redSquirrelSightings: Double(randomRed), squirrels: [randomSighting]))
+             //Empty array of squirrel locations
+         }
+     },
+            label: {
+             Text(Image(systemName: "person.3"))
+     })
+     //Spacer()
+     
+     //I want this button to clear all data that I currently have populated. I am trying to use delete by ID but not sure if it works
+     Button(action: {
+         cloud.getAll(dummy: NewSquirrelUser()) {
+             (people) in
+             for person in people {
+                 cloud.deleteByID(dummy: NewSquirrelUser(), id: person.id.uuidString)
+             }
+         }
+     }, label: {
+         Text(Image(systemName: "trash.fill"))
+     })
+    
+ }
+ .frame(width:80, height:25)
+ */
