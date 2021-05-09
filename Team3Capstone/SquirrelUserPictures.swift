@@ -15,12 +15,25 @@ struct SquirrelUserPictures: View {
     @State private var showPhotoPicker = false
     @State private var image: Image? = nil
     //Need to add this ui image?
+    
     @State private var uiImage : UIImage? = nil
     var body: some View {
         VStack {
-                      if image != nil {
-                image!.resizable().scaledToFit()
+                if image != nil {
+                    image!.resizable().scaledToFit()
             }
+            VStack {
+            Button(action: {
+                showCameraPicker = true
+            }, label: {
+                Text("Take a photo!")
+            })
+            .sheet(isPresented: $showCameraPicker, content: {
+                ImagePicker(isShown: $showCameraPicker, image: $image, imagePNG: $uiImage, source: ImagePicker.SourceType.camera)
+            })
+            }
+            .padding()
+            VStack {
             Button(action: {
                 showCameraPicker = true
             }, label: {
@@ -29,7 +42,9 @@ struct SquirrelUserPictures: View {
             .sheet(isPresented: $showCameraPicker, content: {
                 ImagePicker(isShown: $showCameraPicker, image: $image, imagePNG: $uiImage, source: ImagePicker.SourceType.photoLibrary)
             })
+            }
             .padding()
+            
         }.onAppear {
             ImagePicker.askPermissionForCamera()
         }
@@ -39,7 +54,7 @@ struct SquirrelUserPictures: View {
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         )
     }
-    }
+}
 
 struct SquirrelUserPictures_Previews: PreviewProvider {
     static var previews: some View {

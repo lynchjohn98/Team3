@@ -92,7 +92,7 @@ struct SquirrelSighting: View {
                     }
                 }, label: {
                     if redSquirrelSelected {
-                        Image("squirrelSelectRed")
+                        Image("squirrelSelectRed-3")
                             .resizable()
                             .scaledToFit()
                             .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
@@ -100,7 +100,7 @@ struct SquirrelSighting: View {
                                         .stroke(Color.orange, lineWidth: 4))
                     }
                     else {
-                        Image("squirrelSelectRed")
+                        Image("squirrelSelectRed-3")
                             .resizable()
                             .scaledToFit()
                             .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)

@@ -33,22 +33,32 @@ struct SquirrelData: View {
             VStack{
                 VStack {
                     Text("There are a total of " + String(amountOfUsers) + " users")
-                        .multilineTextAlignment(.center)
+                        .fontWeight(.bold)
                         .font(.title2)
+                        .multilineTextAlignment(.center)
                         .foregroundColor(.black)
+                        
                     Spacer()
                         .frame(width:50, height: 50)
                 }
                 VStack {
                     
-                    Text("All Users Grey vs. Red Squirrel Findings")
+                    Text("All Users Grey VS Red Squirrel Findings")
                         .multilineTextAlignment(.center)
                         .foregroundColor(.black)
                     HStack {
                         Text(String(allGreySquirrelSightings))
+                            .fontWeight(.bold)
+                            .font(.title2)
                             .foregroundColor(.gray)
                         Text(" VS ")
+                            .fontWeight(.bold)
+                            .font(.title2)
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.black)
                         Text(String(allRedSquirrelSightings))
+                            .fontWeight(.bold)
+                            .font(.title2)
                             .foregroundColor(.red)
                     }
                     
@@ -59,6 +69,7 @@ struct SquirrelData: View {
                     Spacer()
                         .frame(width: 50, height: 50)
                     Text("Your Grey vs. Red Squirrel Findings")
+                        .foregroundColor(.black)
                     if (createdAccount == false) {
                         Text("Please make an account to start finding squirrels!")
                             .foregroundColor(.red)
@@ -68,9 +79,16 @@ struct SquirrelData: View {
                     else {
                         HStack {
                             Text(String(currentUserGraySightings))
+                                .fontWeight(.bold)
+                                .font(.title2)
                                 .foregroundColor(.gray)
                             Text(" VS ")
+                                .fontWeight(.bold)
+                                .font(.title2)
+                                .foregroundColor(.black)
                             Text(String(currentUserRedSightings))
+                                .fontWeight(.bold)
+                                .font(.title2)
                                 .foregroundColor(.red)
                         }
                         PieChartView(slices: [Double(currentUserGraySightings), Double(currentUserRedSightings)], colors: [Color.gray, Color.red])

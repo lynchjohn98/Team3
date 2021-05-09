@@ -18,20 +18,14 @@ struct SquirrelTrophy: View {
         
         VStack {
             
-                
-//            Text("Welcome " + String(accountUsername))
-//                .foregroundColor(.black)
-//            Text("You have sighted " + String(currentUsersSightings) + " squirrels")
-//                .foregroundColor(.black)
-//            Text(String(accountUsername) + ", you are a:")
-//                .foregroundColor(.black)
-                
-             //   Text("Welcome " + String(accountUsername) + "! You have sighted " + String(currentUsersSightings) + " Squirrels!")
             VStack {
                 Text("Welcome " + String(accountUsername) + "!")
                 Text("You have sighted " + String(currentUsersSightings) + " Squirrels!")
-                
-                Text("You are a: " + userRank)
+                Text("You are a: ")
+                Text(String(userRank))
+                    .fontWeight(.bold)
+                    .font(.title2)
+                    .foregroundColor(.black)
             }
             .foregroundColor(.black)
             HStack {
@@ -45,11 +39,13 @@ struct SquirrelTrophy: View {
                         .font(.title3)
                         .fontWeight(.bold)
                         .foregroundColor(.black)
-                    Text("1-10 Squirrels Sighted")
+                    Text("1-10 Sightings")
+                        .foregroundColor(.black)
                 }
             }
+            .padding()
             HStack {
-                Image("squirrelCartoon")
+                Image("squirrelPro")
                     .resizable()
                     .frame(width:200, height:200)
                     .clipShape(Circle())
@@ -59,12 +55,13 @@ struct SquirrelTrophy: View {
                         .font(.title3)
                         .fontWeight(.bold)
                         .foregroundColor(.black)
-                    Text("11-30 Squirrels Sighted")
+                    Text("11-30 Sightings")
                         .foregroundColor(.black)
                 }
             }
+            .padding()
             HStack {
-                Image("squirrelCartoon")
+                Image("squirrelExpert")
                     .resizable()
                     .frame(width:200, height:200)
                     .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
@@ -74,10 +71,11 @@ struct SquirrelTrophy: View {
                         .font(.title3)
                         .fontWeight(.bold)
                         .foregroundColor(.black)
-                    Text("31+ Squirrels Sighted")
+                    Text("31+ Sightings")
                         .foregroundColor(.black)
                 }
             }
+            .padding()
 
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -87,22 +85,24 @@ struct SquirrelTrophy: View {
             )
             //As our data view appears, need to fill in our information
             .onAppear(perform: {
-                if (currentUsersSightings >= 0 && currentUsersSightings < 11) {
-                    userRank = "Squirrel Friend!"
-                }
-                else if (currentUsersSightings >= 11 && currentUsersSightings < 31) {
-                    userRank = "Squirrel Pro!"
-                }
-                else {
-                    userRank = "Squirrel Expert!"
-                }
                 //A constant that will keep all of our data stored.
                 cloud.getAll(dummy: NewSquirrelUser()) { (people) in
                     for person in people {
                         if person.username == accountUsername {
-                        currentUsersSightings = Int(person.greySquirrelSightings + person.redSquirrelSightings)
+                            currentUsersSightings = Int(person.greySquirrelSightings + person.redSquirrelSightings)
+                            //Check what type of rank the user has
+                            if (currentUsersSightings >= 0 && currentUsersSightings < 11) {
+                                userRank = "Squirrel Friend"
+                            }
+                            else if (currentUsersSightings >= 11 && currentUsersSightings < 31) {
+                                userRank = "Squirrel Pro"
+                            }
+                            else {
+                                userRank = "Squirrel Expert"
+                            }
                         }
                     }
+                    print("Finished getting sightings")
                 }
             })
         }

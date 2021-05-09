@@ -44,6 +44,9 @@ struct NewSquirrelUser: Hashable, Codable {
     var redSquirrelSightings : Double = 0
     //Make array of squirrel
     var squirrels = [SquirrelLocation]()
+    
+    //This is an extraneous stretch goal where we save the images a user uploaded so they can parse them later
+    //var uploadedImages = []()
 }
 
 //Create a storage for our locations for the pins located on the map
@@ -62,12 +65,15 @@ var createdAccount : Bool = false
 //Variable to store and track the current users id
 var userID : String = ""
 
-
 struct ContentView: View {
     
    //Variables if the user want's to sign up for their own account
     @State var showUserSignUp = false
     @State var selectedUsername = ""
+    
+    //Need an erorr message if the user attempts to make a new account after making a previous one
+    @State var accountErrorMessage = false
+
     
     var body: some View {
         
@@ -104,6 +110,7 @@ struct ContentView: View {
                             for person in people {
                                 cloud.deleteByID(dummy: NewSquirrelUser(), id: person.id.uuidString)
                             }
+                            createdAccount = false
                         }
                     }, label: {
                         Text(Image(systemName: "trash.fill"))
@@ -143,7 +150,12 @@ struct ContentView: View {
                     VStack {
                         HStack {
                             Button(action: {
-                                showUserSignUp = true
+                                if (createdAccount) {
+                                    accountErrorMessage = true
+                                }
+                                else {
+                                    showUserSignUp = true
+                                }
                             }, label: {
                                 Text(Image(systemName: "person.badge.plus"))
                                     .font(.system(size: 30))
@@ -156,6 +168,8 @@ struct ContentView: View {
                                 Button(action: {
                                     cloud.save(data: NewSquirrelUser(username: selectedUsername, greySquirrelSightings : 0, redSquirrelSightings : 0, squirrels : []))
                                     accountUsername = selectedUsername
+                                    print(accountUsername)
+                                    print("Got username above")
                                     createdAccount = true
                                     showUserSignUp = false
                                     
@@ -165,6 +179,7 @@ struct ContentView: View {
                             }
                             .multilineTextAlignment(.center)
                             .frame(width:60)
+                            
                        
                         NavigationLink(
                             destination: SquirrelData(),
@@ -188,7 +203,7 @@ struct ContentView: View {
                         NavigationLink(
                             destination: SquirrelAboutUs(),
                             label: {
-                                Text(Image(systemName: "book"))
+                                Text(Image(systemName: "questionmark"))
                                     .font(.system(size: 30))
                                     .foregroundColor(.white)
                             })
@@ -203,13 +218,17 @@ struct ContentView: View {
                             .frame(width:60)
                         }
                     }
-                    
+                    .alert(isPresented: $accountErrorMessage) {
+                        Alert(title: Text("Error!"), message: Text("You have already created an account!"), dismissButton: .default(Text("Got it!")))
+                    }
+                    Spacer()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(
                     RadialGradient(gradient: Gradient(colors: [.white, .orange]), center: .center, startRadius: 2, endRadius: 650)
                         .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
                 ).navigationBarHidden(true)
+            
         }
     }
 }
