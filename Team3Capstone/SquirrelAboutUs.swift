@@ -26,8 +26,8 @@ struct SquirrelAboutUs: View {
     
     //Index for paging views
     //Images for the steppers on the squirrel info tabs
-    var greySquirrelImages = ["grey5", "grey6", "grey7", "grey8", "grey9", "grey10"]
-    var redSquirrelImages = ["red", "red1", "red2", "red3", "red4", "red5"]
+    var greySquirrelImages = [ "grey6", "grey7", "grey5", "grey9", "grey3", "grey10"]
+    var redSquirrelImages = ["redSquirrelSelect", "red1", "red2", "red3", "red4", "red5"]
     
     var body: some View {
         
