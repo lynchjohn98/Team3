@@ -43,7 +43,7 @@ struct SquirrelData: View {
                 }
                 VStack {
                     
-                    Text("All Users Grey VS Red Squirrel Findings")
+                    Text("All Users Gray vs. Red Squirrel Findings")
                         .multilineTextAlignment(.center)
                         .foregroundColor(.black)
                     HStack {
@@ -51,7 +51,7 @@ struct SquirrelData: View {
                             .fontWeight(.bold)
                             .font(.title2)
                             .foregroundColor(.gray)
-                        Text(" VS ")
+                        Text(" vs. ")
                             .fontWeight(.bold)
                             .font(.title2)
                             .multilineTextAlignment(.center)
@@ -82,7 +82,7 @@ struct SquirrelData: View {
                                 .fontWeight(.bold)
                                 .font(.title2)
                                 .foregroundColor(.gray)
-                            Text(" VS ")
+                            Text(" vs. ")
                                 .fontWeight(.bold)
                                 .font(.title2)
                                 .foregroundColor(.black)

@@ -19,36 +19,29 @@ struct SquirrelUserPictures: View {
     @State private var uiImage : UIImage? = nil
     var body: some View {
         VStack {
-                if image != nil {
-                    image!.resizable().scaledToFit()
-            }
-            VStack {
-            Button(action: {
-                showCameraPicker = true
-            }, label: {
-                Text("Take a photo!")
-            })
-            .sheet(isPresented: $showCameraPicker, content: {
-                ImagePicker(isShown: $showCameraPicker, image: $image, imagePNG: $uiImage, source: ImagePicker.SourceType.camera)
-            })
-            }
-            .padding()
-            VStack {
-            Button(action: {
-                showCameraPicker = true
-            }, label: {
-                Text("Upload your Squirrel Photos!")
-            })
-            .sheet(isPresented: $showCameraPicker, content: {
-                ImagePicker(isShown: $showCameraPicker, image: $image, imagePNG: $uiImage, source: ImagePicker.SourceType.photoLibrary)
-            })
-            }
-            .padding()
-            
-        }.onAppear {
-            ImagePicker.askPermissionForCamera()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                              if image != nil {
+                        image!.resizable().scaledToFit()
+                    }
+                    Button(action: {
+                        showCameraPicker = true
+                    }, label: {
+                        Text("Camera")
+                    })
+                    .sheet(isPresented: $showCameraPicker, content: {
+                        ImagePicker(isShown: $showCameraPicker, image: $image, imagePNG: $uiImage, source: ImagePicker.SourceType.camera)
+                    }).padding()
+                    Button(action: {
+                        showPhotoPicker = true
+                    }, label: {
+                        Text("Photo Library")
+                    }).padding()
+                    .sheet(isPresented: $showPhotoPicker, content: {
+                        ImagePicker(isShown: $showPhotoPicker, image: $image, imagePNG: $uiImage, source: ImagePicker.SourceType.photoLibrary)
+                    })
+                }.onAppear {
+                    ImagePicker.askPermissionForCamera()
+                }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
             RadialGradient(gradient: Gradient(colors: [.white, .orange]), center: .center, startRadius: 2, endRadius: 650)
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)

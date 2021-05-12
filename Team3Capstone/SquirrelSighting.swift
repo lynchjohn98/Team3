@@ -30,13 +30,13 @@ struct SquirrelSighting: View {
         
         VStack {
             
-            
             VStack {
                 
                 Text("Select the Squirrel You See!")
                     .font(.title2)
                     .fontWeight(.bold)
                     .multilineTextAlignment(.center)
+                    .foregroundColor(.black)
                 Spacer()
                     .frame(width: 2, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
             }
@@ -72,11 +72,11 @@ struct SquirrelSighting: View {
                 })
                 Spacer()
                 VStack {
-                    Text("Grey Fox Squirrel")
+                    Text("Gray Fox Squirrel")
                         .font(.title3)
                         .fontWeight(.bold)
-                    Text("Grey Backs")
-                    Text("White or Grey Bellies")
+                    Text("Gray Backs")
+                    Text("White or Gray Bellies")
                     Text("White-Fringed Tails")
                 }
                 .foregroundColor(.black)

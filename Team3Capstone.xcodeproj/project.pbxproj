@@ -23,8 +23,8 @@
 /* Begin PBXFileReference section */
 		5E0BD28B263A09B90097C361 /* Team3Capstone.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Team3Capstone.entitlements; sourceTree = "<group>"; };
 		5E0BD28E263A09CE0097C361 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		5E28963026449410004E2EEF /* Chicago.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = Chicago.gpx; path = ../../Desktop/Chicago.gpx; sourceTree = "<group>"; };
-		5E2896322644AA44004E2EEF /* SFPro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = SFPro.ttf; path = ../../Desktop/SFPro.ttf; sourceTree = "<group>"; };
+		5E28963026449410004E2EEF /* Chicago.gpx */ = {isa = PBXFileReference; lastKnownFileType = text; name = Chicago.gpx; path = ../../Desktop/Everything/Chicago.gpx; sourceTree = "<group>"; };
+		5E2896322644AA44004E2EEF /* SFPro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = SFPro.ttf; path = ../../Desktop/Everything/Team3Items/SFPro.ttf; sourceTree = "<group>"; };
 		5E7C3AB12630830C007BF3C5 /* SquirrelSighting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquirrelSighting.swift; sourceTree = "<group>"; };
 		5E7C3AB726309976007BF3C5 /* SquirrelAboutUs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquirrelAboutUs.swift; sourceTree = "<group>"; };
 		5E7C3ABE26323135007BF3C5 /* SquirrelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquirrelData.swift; sourceTree = "<group>"; };
@@ -315,7 +315,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Team3Capstone/Team3Capstone.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"Team3Capstone/Preview Content\"";
 				DEVELOPMENT_TEAM = JS672DRUXD;
 				ENABLE_PREVIEWS = YES;
@@ -339,7 +339,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Team3Capstone/Team3Capstone.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"Team3Capstone/Preview Content\"";
 				DEVELOPMENT_TEAM = JS672DRUXD;
 				ENABLE_PREVIEWS = YES;
