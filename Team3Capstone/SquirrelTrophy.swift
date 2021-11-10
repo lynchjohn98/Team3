@@ -3,7 +3,8 @@
 //  Team3Capstone
 //
 //  Created by John William Lynch on 4/22/21.
-//
+// Hello World!
+//This is a new comment
 
 import SwiftUI
 import AppDevWithSwiftLibrary
